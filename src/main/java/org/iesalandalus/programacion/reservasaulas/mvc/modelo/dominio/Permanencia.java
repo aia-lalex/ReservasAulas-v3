@@ -21,8 +21,8 @@ public class Permanencia {
 			throw  new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
 		}
 		
-	setTramo(permanencia.tramo);
-	setDia(permanencia.dia);
+	setTramo(permanencia.getTramo());
+	setDia(permanencia.getDia());
 	
 	}
 	
