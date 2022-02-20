@@ -42,18 +42,17 @@ public class Profesores {
  	
 	public void insertar(Profesor profesor) throws OperationNotSupportedException {
 		if (profesor == null) {
-			throw new IllegalArgumentException("No se puede insertar un profesor nulo.");
+			throw new NullPointerException("ERROR: No se puede insertar un profesor nulo.");
 		}
 		int indice = buscarIndice(profesor);
-		if (!tamanoSuperado(indice)) {
+		if (tamanoSuperado(indice)) {
+			throw new OperationNotSupportedException("ERROR: No se aceptan más profesores.");
+		} else if(capacidadSuperada(indice)) {			
 			coleccionProfesores[indice] = profesor;
-			capacidad++;
+			this.capacidad++;
 		} else {
-			if (capacidadSuperada(indice)) {
-				throw new OperationNotSupportedException("El profesor ya existe.");
-			} else {
-				throw new OperationNotSupportedException("No se aceptan más profesores.");
-			}		}
+				throw new OperationNotSupportedException("ERROR: El profesor ya existe.");
+	}
 	}
 	private int buscarIndice(Profesor profesor) {
 		int indice = 0;
@@ -73,6 +72,7 @@ public class Profesores {
 }
 
 private boolean capacidadSuperada(int indice) {
+	
 	return indice > tamano;
 }
            
@@ -90,23 +90,25 @@ private boolean capacidadSuperada(int indice) {
 
     public void borrar(Profesor profesor) throws OperationNotSupportedException {
 	if (profesor == null) {
-		throw new IllegalArgumentException("No se puede borrar un profesor nulo.");
+		throw new IllegalArgumentException("ERROR: No se puede borrar un profesor nulo.");
 	}
 	int indice = buscarIndice(profesor);
-	if (!tamanoSuperado(indice)) {
-		desplazarUnaPosicionHaciaIzquierda(indice);
+	if (tamanoSuperado(indice)) {
+		throw new OperationNotSupportedException("ERROR: No se puede buscar un prefesor nulo.");
 	}
 	else {
-		throw new OperationNotSupportedException("El profesor a borrar no existe.");
+
+		desplazarUnaPosicionHaciaIzquierda(indice);
+		
 	}
 }
     
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-    	
-    	for (int i = indice; !tamanoSuperado(i); i++) {
+    	int i = indice;
+    	for (i = indice; !tamanoSuperado(i); i++) {
 			coleccionProfesores[i] = coleccionProfesores[i+1];
 		}
-		coleccionProfesores [indice] = null;
+		coleccionProfesores [i] = null;
 		tamano--;
 }
     

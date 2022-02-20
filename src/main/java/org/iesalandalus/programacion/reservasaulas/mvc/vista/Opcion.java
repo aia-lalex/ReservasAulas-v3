@@ -82,25 +82,25 @@ public enum Opcion {
 			vista.consultarDisponibilidad();
 		}
 	};
-	private String mensajeAMostrar;
+	private String mensajeMostrado;
 	private static Vista vista;
 
-	private Opcion(String mensajeAMostrar) {
-		this.mensajeAMostrar = mensajeAMostrar;
+	private Opcion(String mensajeMostrado) {
+		this.mensajeMostrado = mensajeMostrado;
 	}
 
 	public String getMensaje() {
-		return mensajeAMostrar;
+		return mensajeMostrado;
 	}
 
 	public abstract void ejecutar();
 
 	protected static void setVista(Vista vista) {
-		vista = Vista;
+		Opcion.vista = vista;
 	}
 
 	public String toString() {
-		return mensajeAMostrar;
+		return mensajeMostrado;
 	}
 
 	public static Opcion getOpcionSegunOrdinal(int ordinal) {

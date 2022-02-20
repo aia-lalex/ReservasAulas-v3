@@ -1,5 +1,5 @@
+package org.iesalandalus.programacion.reservasaulas.mvc.modelo;
 import javax.naming.OperationNotSupportedException;
-
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
@@ -108,7 +108,5 @@ public class Modelo {
 	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 		return reservas.consultarDisponibilidad(aula, permanencia);
 	}
-
-}
 
 }
