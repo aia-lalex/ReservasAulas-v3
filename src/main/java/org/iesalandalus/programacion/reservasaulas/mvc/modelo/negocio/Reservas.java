@@ -127,7 +127,7 @@ public class Reservas {
 
 	public Reserva[] getReservasAula(Aula aula) {
 
-	if(aula==null)
+		if(aula==null)
 			throw new IllegalArgumentException("ERROR: No se pueden comprobar las reservas realizadas sobre un aula nula.");
 		Reserva[] reservaAula = new Reserva[capacidad];
 		int indice = 0;

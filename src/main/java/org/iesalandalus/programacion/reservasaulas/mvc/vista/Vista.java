@@ -10,7 +10,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.Reservas;
 
 public class Vista {
 
-	
+
 	private static final String ERROR = "ERROR: ";
 	private static final String NOMBRE_VALIDO = "Alex";
 	private static final String CORREO_VALIDO = "aia-lalex@hotmail.es";
@@ -23,13 +23,13 @@ public class Vista {
 	}
 	public void setControlador(Controlador controlador) {
 		if (controlador == null) {
-		throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
+			throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
 		}
 		this.controlador = controlador;
-		}
-	
+	}
+
 	public void comenzar() {
-	int ordinalOpcion;
+		int ordinalOpcion;
 		do {
 			Consola.mostrarMenu();
 			ordinalOpcion = Consola.elegirOpcion();
@@ -91,8 +91,8 @@ public class Vista {
 			System.out.println("No hay aulas que listar.");
 		}
 	}
-//profesores       
-        public void insertarProfesor() {
+	//profesores       
+	public void insertarProfesor() {
 		Consola.mostrarCabecera("Insertar profesor");
 		try {
 			Profesor profesor = Consola.leerProfesor();
@@ -104,10 +104,10 @@ public class Vista {
 	}
 
 	public void borrarProfesor() {
-                String nombre="";
+		String nombre="";
 		Consola.mostrarCabecera("Borrar profesor");
 		try {
-                        nombre=Consola.leerNombreProfesor();
+			nombre=Consola.leerNombreProfesor();
 			Profesor profesor =new Profesor(nombre,CORREO_VALIDO);
 			controlador.borrarProfesor(profesor);
 			System.out.println("Profesor borrado correctamente.");
@@ -119,10 +119,10 @@ public class Vista {
 	public void buscarProfesor() {
 		Consola.mostrarCabecera("Buscar profesor");
 		Profesor profesor = null;
-                String nombre="";
+		String nombre="";
 		try {
 			nombre = Consola.leerNombreProfesor();
-                        profesor=new Profesor(nombre,CORREO_VALIDO);
+			profesor=new Profesor(nombre,CORREO_VALIDO);
 			profesor = controlador.buscarProfesor(profesor);
 			if (profesor != null) {
 				System.out.println("El profesor buscado es: " + profesor);
@@ -145,11 +145,11 @@ public class Vista {
 			System.out.println("No hay profesores que listar.");
 		}
 	}
-       
-            
-        
-        
-private Reserva leerReserva(Profesor profesor) {
+
+
+
+
+	private Reserva leerReserva(Profesor profesor) {
 		Profesor profesorAEncontrar = controlador.buscarProfesor(profesor);
 		if(profesorAEncontrar == null)
 			return null;
@@ -159,7 +159,7 @@ private Reserva leerReserva(Profesor profesor) {
 		return new Reserva(profesorAEncontrar, buscada, new Permanencia(Consola.leerDia(), Consola.leerTramo()));
 	}
 
-public void realizarReserva() {
+	public void realizarReserva() {
 		Consola.mostrarCabecera("REALIZAR RESERVA");
 		Profesor profesor = new Profesor(Consola.leerNombreProfesor(), CORREO_VALIDO);
 		boolean lecturaCorrecta = true;
@@ -185,8 +185,8 @@ public void realizarReserva() {
 		}
 	}
 
-  
-public void anularReserva() {
+
+	public void anularReserva() {
 		Consola.mostrarCabecera("ANULAR RESERVA");
 		Profesor profesorABuscar = new Profesor(Consola.leerNombreProfesor(), CORREO_VALIDO);
 		boolean lecturaCorrecta = true;
@@ -213,7 +213,7 @@ public void anularReserva() {
 	}
 
 
-public void listarReservas() {
+	public void listarReservas() {
 		Consola.mostrarCabecera("LISTAR RESERVAS");
 		String[] reservas = controlador.representarReservas();
 		if(reservas.length==0)
@@ -222,7 +222,7 @@ public void listarReservas() {
 			System.out.println(reservas[i]);
 	}
 
-public void listarReservasAula() {
+	public void listarReservasAula() {
 		Consola.mostrarCabecera("LISTAR RESERVAS AULA");
 		Aula aula = new Aula(Consola.leerNombreAula());
 		boolean lecturaCorrecta = true;
@@ -240,7 +240,7 @@ public void listarReservasAula() {
 	}
 
 
-public void listarReservasProfesor() {
+	public void listarReservasProfesor() {
 		Consola.mostrarCabecera("LISTAR RESERVAS PROFESOR");
 		Profesor profesor = new Profesor(Consola.leerNombreProfesor(), CORREO_VALIDO);
 		boolean lecturaCorrecta = true;
@@ -257,7 +257,7 @@ public void listarReservasProfesor() {
 		}
 	}
 
-public void listarReservasPermanencia() {
+	public void listarReservasPermanencia() {
 		Consola.mostrarCabecera("LISTAR RESERVAS PERMANENCIA");
 		Permanencia permanencia = new Permanencia(Consola.leerDia(), Consola.leerTramo());
 		Reserva[] reservas = controlador.getReservasPermanencia(permanencia);
@@ -267,7 +267,7 @@ public void listarReservasPermanencia() {
 			System.out.println(reservas[i]);
 	}
 
-public void consultarDisponibilidad() {
+	public void consultarDisponibilidad() {
 		Consola.mostrarCabecera("CONSULTAR DISPONIBILIDAD");
 		Aula aula = new Aula(Consola.leerNombreAula());
 		boolean lecturaCorrecta = true;

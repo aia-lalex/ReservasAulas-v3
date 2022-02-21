@@ -7,14 +7,14 @@ public class Reserva {
 	Permanencia permanencia;
 	Profesor profesor;
 	Aula aula;
-	
+
 	public Reserva(Profesor profesor, Aula aula, Permanencia permanencia) {
 		setProfesor(profesor);
 		setAula(aula);
 		setPermanencia(permanencia);
-		
+
 	}
-	
+
 	public Reserva(Reserva reserva) {
 		if (reserva == null) {
 			throw new NullPointerException("ERROR: No se puede copiar una reserva nula.");
@@ -22,22 +22,22 @@ public class Reserva {
 		setProfesor(reserva.getProfesor());
 		setAula(reserva.getAula());
 		setPermanencia(reserva.getPermanencia());
-				
+
 	}
-	
+
 
 	public Permanencia getPermanencia() {
-		
+
 		return permanencia;
 	}
 
 	public Profesor getProfesor() {
-		
+
 		return profesor;
 	}
 
 	public Aula getAula() {
-		
+
 		return aula;
 	}
 
@@ -89,7 +89,7 @@ public class Reserva {
 				+ super.toString() + "]";
 	}
 
-	
-	
-	
+
+
+
 }

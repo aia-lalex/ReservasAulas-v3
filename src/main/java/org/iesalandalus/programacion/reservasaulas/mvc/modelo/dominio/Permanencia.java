@@ -13,19 +13,19 @@ public class Permanencia {
 	public Permanencia(LocalDate dia, Tramo tramo) {
 		setDia(dia);
 		setTramo(tramo);
-		
+
 	}
-	
+
 	public Permanencia(Permanencia permanencia) {
 		if (permanencia == null) {
 			throw  new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
 		}
-		
-	setTramo(permanencia.getTramo());
-	setDia(permanencia.getDia());
-	
+
+		setTramo(permanencia.getTramo());
+		setDia(permanencia.getDia());
+
 	}
-	
+
 	public LocalDate getDia() {
 		return dia;
 	}
@@ -65,10 +65,10 @@ public class Permanencia {
 	@Override
 	public String toString() {
 		return "dia=" + dia.format(FORMATO_DIA) + ", tramo=" + tramo;
-	
+
 	}
-	
-	
+
+
 }
 
 

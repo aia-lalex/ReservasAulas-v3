@@ -23,6 +23,7 @@ public class Controlador {
 		}
 		this.modelo = modelo;
 		this.vista = vista;
+		this.vista.setControlador(this);
 
 	}
 

@@ -1,8 +1,8 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista;
 
 public enum Opcion {
-	
-    SALIR("Salir.") {
+
+	SALIR("Salir.") {
 		public void ejecutar() {
 			vista.salir();
 		}

@@ -9,19 +9,19 @@ public class Profesor {
 	public String nombre;
 	public String correo;
 	public String telefono;
-	
-	
+
+
 	public Profesor(String nombre, String correo) {
 		setNombre(nombre);
 		setCorreo(correo);
 	}
-	
+
 	public Profesor(String nombre, String correo, String telefono) {
 		setNombre(nombre);
 		setCorreo(correo);
 		setTelefono(telefono);
 	}
-	
+
 	public Profesor(Profesor profesor) {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un profesor nulo.");
@@ -94,9 +94,9 @@ public class Profesor {
 		String cadenaTelefono = (telefono == null) ? "" : ", telefono=" + telefono;
 		return String.format("nombre=%s, correo=%s%s", nombre, correo, cadenaTelefono);
 	}
-	
-	
-	
+
+
+
 }
 
 

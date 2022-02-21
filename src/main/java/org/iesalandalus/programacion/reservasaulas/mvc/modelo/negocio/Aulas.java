@@ -19,11 +19,11 @@ public class Aulas {
 		coleccionAulas = new Aula[capacidad];
 		this.tamano = 0;
 	}
-		
+
 	public Aula[] get() {
 		return copiaProfundaAulas();
 	}
-	
+
 	private Aula[] copiaProfundaAulas() throws IllegalArgumentException,NullPointerException {
 		Aula[] copiaAulas = new Aula[tamano];
 		for (int i = 0; !tamanoSuperado(i); i++) {
@@ -39,8 +39,8 @@ public class Aulas {
 	public int getCapacidad() {
 		return capacidad;
 	}
-	
-	
+
+
 	public void insertar(Aula aula) throws OperationNotSupportedException {
 		if (aula == null) {
 			throw new NullPointerException("ERROR: No se puede insertar un aula nula.");
@@ -55,12 +55,12 @@ public class Aulas {
 			throw new OperationNotSupportedException("Aula ya existente");
 		}
 	}
-	
+
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
-	
-	
+
+
 
 	public void setTamano(int tamano) {
 		this.tamano = tamano;
@@ -81,17 +81,17 @@ public class Aulas {
 		return indice;
 	}
 
-	
+
 	private boolean tamanoSuperado(int indice) {
 		return indice >= tamano;
 	}
 
-	
+
 	private boolean capacidadSuperada(int indice) {
 		return indice >= capacidad;
 	}
 
-	
+
 	public Aula buscar(Aula aula) throws IllegalArgumentException,
 	NullPointerException {
 		if (aula == null) {
@@ -106,7 +106,7 @@ public class Aulas {
 		}
 	}
 
-	
+
 	public void borrar(Aula aula) throws OperationNotSupportedException {
 		if (aula == null) {
 			throw new NullPointerException("ERROR: No se puede borrar un aula nula.");
