@@ -4,11 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Permanencia {
+public abstract class Permanencia {
 
 	private LocalDate dia;
 	static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private Tramo tramo;
 
 	public Permanencia(LocalDate dia, Tramo tramo) {
 		setDia(dia);
@@ -45,6 +44,8 @@ public class Permanencia {
 		this.tramo = tramo;
 	}
 
+	public abstract int getPuntos();
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(dia, tramo);
