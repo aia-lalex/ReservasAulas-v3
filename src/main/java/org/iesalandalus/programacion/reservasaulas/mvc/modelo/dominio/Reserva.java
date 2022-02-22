@@ -28,7 +28,13 @@ public class Reserva {
 
 	public Permanencia getPermanencia() {
 
-		return permanencia;
+		Permanencia copiaPermanencia = null;
+		if (this.permanencia instanceof PermanenciaPorTramo) {
+			copiaPermanencia = new PermanenciaPorTramo((PermanenciaPorTramo)this.permanencia);
+		} else if (this.permanencia instanceof PermanenciaPorHora) {
+			copiaPermanencia = new PermanenciaPorHora((PermanenciaPorHora)this.permanencia);
+		}
+		return copiaPermanencia;
 	}
 
 	public Profesor getProfesor() {
@@ -67,6 +73,9 @@ public class Reserva {
 		return new Reserva(Profesor.getProfesorFicticio("alexbalwing@hotmail.com"), aula, permanencia);
 	}
 
+	public float getPuntos() {
+		return permanencia.getPuntos()+ aula.getPuntos();
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(aula, permanencia, profesor);
