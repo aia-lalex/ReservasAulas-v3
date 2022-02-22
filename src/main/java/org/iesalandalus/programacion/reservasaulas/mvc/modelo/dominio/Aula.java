@@ -36,7 +36,7 @@ public class Aula {
 	}
 
 	
-	public int getPuntos() {
+	public float getPuntos() {
 		return puestos * PUNTOSXPUESTO;
 	}
 
