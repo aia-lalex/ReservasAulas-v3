@@ -34,6 +34,10 @@ public class Profesor {
 	public String getCorreo() {
 		return correo;
 	}
+	
+	public static Profesor getProfesorFicticio(String correo) {
+		return new Profesor("Alex Balwing", correo);
+	}
 
 	public void setCorreo(String correo) {
 		if (correo == null) {
