@@ -60,7 +60,11 @@ public class Reserva {
 			throw new NullPointerException("ERROR: La reserva debe ser para un aula concreta.");
 		}
 		this.aula = aula;
-		// this.aula = new Aula(aula); No me deja crear objeto
+	
+	}
+	
+	public static Reserva getReservaFicticia(Aula aula, Permanencia permanencia) {
+		return new Reserva(Profesor.getProfesorFicticio("alexbalwing@hotmail.com"), aula, permanencia);
 	}
 
 	@Override
