@@ -2,7 +2,9 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 import com.google.common.base.Objects;
 
 public class Aula {
+	private int puestos;
 	private String nombre;
+	private float PUNTOSXPUESTO= 0.5f;
 
 	public Aula(String nombre) {
 		if (nombre == null) {
@@ -31,6 +33,11 @@ public class Aula {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	
+	public int getPuntos() {
+		return puestos * PUNTOSXPUESTO;
 	}
 
 	@Override

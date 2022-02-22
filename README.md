@@ -1,6 +1,6 @@
 # Tarea Reservas de Aulas
 ## Profesor: Andrés Rubio del Río
-## Alumno: Alejandro Hurtado Navarro
+## Alumno: Alejandro Hurtado Navarro 
 
 Desde el IES Al-Ándalus nos comentan que debemos tener en cuenta los siguientes aspectos:
 
