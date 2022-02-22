@@ -9,9 +9,9 @@ public abstract class Permanencia {
 	private LocalDate dia;
 	static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	public Permanencia(LocalDate dia, Tramo tramo) {
+	public Permanencia(LocalDate dia) {
 		setDia(dia);
-		setTramo(tramo);
+	
 
 	}
 
@@ -28,27 +28,20 @@ public abstract class Permanencia {
 	public LocalDate getDia() {
 		return dia;
 	}
-	public Tramo getTramo() {
-		return tramo;
-	}
+
 	private void setDia(LocalDate dia) {
 		if (dia == null) {
 			throw new NullPointerException("ERROR: El día de una permanencia no puede ser nulo.");
 		}
 		this.dia = dia;
 	}
-	private void setTramo(Tramo tramo) {
-		if (tramo == null) {
-			throw new NullPointerException("ERROR: El tramo de una permanencia no puede ser nulo.");
-		}
-		this.tramo = tramo;
-	}
+
 
 	public abstract int getPuntos();
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(dia, tramo);
+		return Objects.hash(dia);
 	}
 
 	@Override
@@ -60,12 +53,13 @@ public abstract class Permanencia {
 		if (getClass() != obj.getClass())
 			return false;
 		Permanencia other = (Permanencia) obj;
-		return Objects.equals(dia, other.dia) && tramo == other.tramo;
+		return Objects.equals(dia, other.dia);
 	}
 
+	
 	@Override
 	public String toString() {
-		return "dia=" + dia.format(FORMATO_DIA) + ", tramo=" + tramo;
+		return "dia=" + dia.format(FORMATO_DIA);
 
 	}
 
