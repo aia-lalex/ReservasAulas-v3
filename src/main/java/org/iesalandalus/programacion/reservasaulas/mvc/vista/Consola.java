@@ -129,4 +129,9 @@ public class Consola {
 		return fecha;
 
 	}
+	public static Profesor leerProfesorFicticio() {
+		System.out.print("Introduce correo del profe: ");
+		
+		return Profesor.getProfesorFicticio(Entrada.cadena());
+	}
 }
