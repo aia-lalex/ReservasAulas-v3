@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.controlador;
 
+import java.util.List;
+
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.Modelo;
@@ -9,7 +11,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
 
-public class Controlador {
+public class Controlador implements IControlador {
 
 	Vista vista;
 	Modelo modelo;
@@ -32,7 +34,7 @@ public class Controlador {
 	}
 
 	public void terminar() {
-		System.out.println("¡ADIOS!");
+		System.out.println("¡Hasta luegorrr!");
 	}
 
 	public void insertarAula(Aula aula) throws OperationNotSupportedException {
@@ -56,13 +58,13 @@ public class Controlador {
 	public Profesor buscarProfesor(Profesor profesor) {
 		return modelo.buscarProfesor(profesor);
 	}
-	public String[] representarAulas() {
+	public List<String> representarAulas() {
 		return modelo.representarAulas();
 	}
-	public String[] representarProfesores() {
+	public List<String> representarProfesores() {
 		return modelo.representarProfesores();
 	}
-	public String[] representarReservas() {
+	public List<String> representarReservas() {
 		return modelo.representarReservas();
 	}
 	public void realizarReserva(Reserva reserva) throws
@@ -73,13 +75,13 @@ public class Controlador {
 	OperationNotSupportedException {
 		modelo.anularReserva(reserva);
 	}
-	public Reserva[] getReservasAula(Aula aula) {
+	public List<Reserva> getReservasAula(Aula aula) {
 		return modelo.getReservasAula(aula);
 	}
-	public Reserva[] getReservasProfesor(Profesor profesor) {
+	public List<Reserva> getReservasProfesor(Profesor profesor) {
 		return modelo.getReservasProfesor(profesor);
 	}
-	public Reserva[] getReservasPermanencia(Permanencia permanencia) {
+	public List<Reserva> getReservasPermanencia(Permanencia permanencia) {
 		return modelo.getReservasPermanencia(permanencia);
 	}
 	public boolean consultarDisponibilidad(Aula aula, Permanencia permanecia) {

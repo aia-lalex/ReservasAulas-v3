@@ -1,11 +1,16 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.vista;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.PermanenciaPorHora;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.PermanenciaPorTramo;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Tramo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
@@ -13,125 +18,168 @@ public class Consola {
 	private static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 
-	private Consola() {
-
+	private Consola() {	
 	}
-
+	
 	public static void mostrarMenu() {
-		mostrarCabecera("Gestión para profesores de reserva de aula");
-		int i=0;
 		for (Opcion opcion: Opcion.values()) {
-			System.out.println(i + "." + opcion);
-			//System.out.println( i  opcion);                                               
-			i++;
+			System.out.println(opcion);
 		}
 	}
-
+	
 	public static void mostrarCabecera(String mensaje) {
 		System.out.printf("%n%s%n", mensaje);
-		String cadena = "%0" + mensaje.length() + "d%n";
-		System.out.println(String.format(cadena, 0).replace("0", "-"));
+		String formatoStr = "%0" + mensaje.length() + "d%n";
+		System.out.println(String.format(formatoStr, 0).replace("0", "-"));
 	}
-
+	
 	public static int elegirOpcion() {
 		int ordinalOpcion;
 		do {
-			System.out.println("\nElige una opción: ");
+			System.out.print("\nElige una opción: ");
 			ordinalOpcion = Entrada.entero();
 		} while (!Opcion.esOrdinalValido(ordinalOpcion));
 		return ordinalOpcion;
 	}
 
+
+
 	public static Aula leerAula() {
-		System.out.println("Introduce el nombre del aula: ");
-		String nombreAula = Entrada.cadena();
-
-		return new Aula(nombreAula);
-	}
-
-	public static Aula leerNombreAula() {
-		String aula;
-		do {
-			System.out.println("Introduce el aula: ");
-			aula = Entrada.cadena();
-		} while (aula.trim().equals(""));
-
-		return new Aula(aula);
-	}            
-
-	public static Profesor leerProfesor() {
-		System.out.println("Introduce el nombre: ");
+		System.out.print("Introduce el nombre del aula: ");
 		String nombre = Entrada.cadena();
-		System.out.println("Introduce el correo: ");
-		String correo = Entrada.cadena();
-		System.out.println("Introduce el teléfono: ");
-		String telefono = Entrada.cadena();
-
-		return new Profesor(nombre, correo,telefono);
+		System.out.print("Introduce el número de puestos del aula: ");
+		int puestos = Entrada.entero();
+		return new Aula(nombre, puestos);
+	}
+	public static int leerNumeroPuestos() {
+		int puestos = 0;
+		do {
+			System.out.print("Introduzca el número de puestos del aula (Min 10 - Max 100): ");
+			puestos = Entrada.entero();
+		} while (puestos < 10 || puestos > 100);
+		return puestos;
 	}
 
-	public static String leerNombreProfesor() {
-		String nombre;
-		do {
-			System.out.println("Introduce el nombre: ");
-			nombre = Entrada.cadena();
-		} while (nombre.trim().equals(""));
+	public static Aula leerAulaFicticia() {
+		System.out.print("Introduce el nombre del aula: ");
+		String nombre = Entrada.cadena();
+		return Aula.getAulaFicticia(nombre);
+	}
 
+	public static String leerNombreAula() {
+		System.out.println("introduce el nombre del aula");
+		String nombre = Entrada.cadena();
 		return nombre;
 	}
 
 
-	public static Tramo leerTramo() {
-		Tramo turno = Tramo.MANANA;
-		int opcion;
-		do 
-		{
-			System.out.println("Introduzca turno de 1-mañana o 2-tarde(: ");
-			opcion = Entrada.entero();
-		} while (opcion < 1 || opcion > 2);
-
-		switch (opcion) 
-		{
-
-		case 1:
-
-			turno = Tramo.MANANA;
-
-
-			break;      
-		case 2:                        
-			turno = Tramo.TARDE;
-			break;
-		}    
-
-
-
-		return  turno;
+	public static Profesor leerProfesor() {
+		System.out.print("Introduce el nombre del profesor: ");
+		String nombre = Entrada.cadena();
+		System.out.print("Introduce el correo del profesor: ");
+		String correo = Entrada.cadena();
+		System.out.print("Introduce el teléfono del profesor: ");
+		String telefono = Entrada.cadena();
+		Profesor profesor = null;
+		if (telefono == null || telefono.trim().equals("")) {
+			profesor = new Profesor(nombre, correo);
+		} else {
+			profesor = new Profesor(nombre, correo, telefono);
+		}
+		return profesor;
+	}
+	
+	
+	public static String leerNombreProfesor() {
+		System.out.println("introduce el nombre del profesor");
+		String nombre = Entrada.cadena();
+		return nombre;
 	}
 
 
-	public static LocalDate leerDia()
-	{
-		String dia;
-		boolean diaCorrecto = false;
-		do {
-			System.out.println("Introduce el día (dd/mm/aaaa): ");
-			dia = Entrada.cadena();
-			try {
-				LocalDate.parse(dia, FORMATO_DIA);
-				diaCorrecto = true;
-			} catch (DateTimeParseException e) {
-				diaCorrecto = false;
-			}
-		} while (!diaCorrecto);
-		LocalDate fecha=LocalDate.parse(dia, FORMATO_DIA);
-
-		return fecha;
-
-	}
 	public static Profesor leerProfesorFicticio() {
-		System.out.print("Introduce correo del profe: ");
-		
+		System.out.print("Introduce el correo del profesor: ");
 		return Profesor.getProfesorFicticio(Entrada.cadena());
 	}
+	
+
+	
+
+	
+	public static Tramo leerTramo( ) {
+		System.out.print("Introduce el tramo de la reserva (0.- Mañana, 1.- Tarde): ");
+		int tramoLeido = Entrada.entero();
+		Tramo tramo = null;
+		if (tramoLeido < 0 || tramoLeido >= Tramo.values().length) {
+			System.out.println("ERROR: La opción elegida no corresponde con ningún tramo.");
+		} else {
+			tramo = Tramo.values()[tramoLeido];
+		}
+		return tramo;
+	}
+	public static LocalDate leerDia() {
+		LocalDate dia = null;
+		String cadenaFormato = "dd/MM/yyyy";
+		DateTimeFormatter formatoDia = DateTimeFormatter.ofPattern(cadenaFormato);
+		System.out.printf("Introduce el día (%s): ", cadenaFormato);
+		String diaLeido = Entrada.cadena();
+		try {
+			dia = LocalDate.parse(diaLeido, formatoDia);
+		} catch (DateTimeParseException e) {
+			System.out.println("ERROR: El formato del día no es correcto.");
+		}
+		return dia;
+	}
+		
+	public static int elegirPermanencia() {
+		int ordinalPermanencia;
+		do {
+			System.out.print("\nElige una permanencia (0.- Por Tamo, 1.- Por Hora): ");
+			ordinalPermanencia = Entrada.entero();
+		} while (ordinalPermanencia < 0 || ordinalPermanencia > 1);
+		return ordinalPermanencia;
+	}
+	
+	public static Permanencia leerPermanencia() {
+		int ordinalPermanencia = Consola.elegirPermanencia();
+		LocalDate dia = leerDia();
+		Permanencia permanencia = null;
+		if (ordinalPermanencia == 0) {
+			Tramo tramo = leerTramo();
+			permanencia = new PermanenciaPorTramo(dia, tramo);
+		} else if (ordinalPermanencia == 1) {
+			LocalTime hora = leerHora();
+			permanencia = new PermanenciaPorHora(dia, hora);
+		}
+		return permanencia;
+	}
+
+	
+	
+	
+	private static LocalTime leerHora() {
+		LocalTime hora = null;
+		String cadenaFormato = "HH:mm";
+		DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern(cadenaFormato);
+		System.out.printf("Introduce la hora (%s): ", cadenaFormato);
+		String horaLeida = Entrada.cadena();
+		try {
+			hora = LocalTime.parse(horaLeida, formatoHora);
+		} catch (DateTimeParseException e) {
+			System.out.println("ERROR: El formato de la hora no es correcto.");
+		}
+		return hora;
+	}
+	
+	public static Reserva leerReserva() {
+		Profesor profesor = leerProfesorFicticio();
+		Aula aula = leerAulaFicticia();
+		Permanencia permanencia = leerPermanencia();
+		return new Reserva(profesor, aula, permanencia);
+	}
+	
+	public static Reserva leerReservaFicticia() {
+		return Reserva.getReservaFicticia(leerAulaFicticia(), leerPermanencia());
+	}
+
 }

@@ -72,11 +72,7 @@ public enum Opcion {
 			vista.listarReservasProfesor();
 		}
 	}
-	, LISTAR_RESERVAS_PERMANENCIA("Listar reservas por permanencia:") {
-		public void ejecutar() {
-			vista.listarReservasPermanencia();
-		}
-	}
+
 	, CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad:") {
 		public void ejecutar() {
 			vista.consultarDisponibilidad();

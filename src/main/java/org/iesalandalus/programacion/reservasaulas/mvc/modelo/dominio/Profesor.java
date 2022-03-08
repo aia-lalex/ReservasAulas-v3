@@ -31,14 +31,34 @@ public class Profesor {
 		setTelefono(profesor.telefono);
 	}
 
-	public String getCorreo() {
-		return correo;
+	private void setNombre(String nombre) {
+		if (nombre == null) {
+			throw new NullPointerException("ERROR: El nombre del profesor no puede ser nulo.");
+		}
+		if (nombre.trim().equals("")) {
+			throw new IllegalArgumentException("ERROR: El nombre del profesor no puede estar vacío.");
+		}
+		this.nombre = nombre;
+	}
+	private String formateaNombre(String nombre){ // Formateo del nombre, eliminamos espacios y ponemos la primera en mayuscula
+		
+		char priLetra;
+		String mayusculas; 
+		String nombreFormateado="";
+		nombre = nombre.trim(); // Eliminamos espacio y tabulaciones
+		String [] nombr = nombre.replaceAll("\\s{2,}", " ").split(" ");
+		
+		for (int i=0; i<nombr.length; i++) {
+			priLetra = nombr[i].charAt(0);
+			mayusculas = priLetra+"".toUpperCase();
+			nombreFormateado += mayusculas+nombr[i].substring(1).toLowerCase() + " ";
+		}
+
+		nombreFormateado = nombreFormateado.substring(0,nombreFormateado.length()-1);
+		
+		return nombreFormateado;
 	}
 	
-	public static Profesor getProfesorFicticio(String correo) {
-		return new Profesor("Alex Balwing", correo);
-	}
-
 	public void setCorreo(String correo) {
 		if (correo == null) {
 			throw new NullPointerException("ERROR: El correo del profesor no puede ser nulo.");
@@ -48,11 +68,7 @@ public class Profesor {
 		}
 		this.correo = correo;
 	}
-
-	public String getTelefono() {
-		return telefono;
-	}
-
+	
 	public void setTelefono(String telefono) {
 		if (telefono != null && !telefono.matches(ER_TELEFONO)) {
 			throw new IllegalArgumentException("ERROR: El teléfono del profesor no es válido.");
@@ -63,16 +79,20 @@ public class Profesor {
 	public String getNombre() {
 		return nombre;
 	}
-
-	private void setNombre(String nombre) {
-		if (nombre == null) {
-			throw new NullPointerException("ERROR: El nombre del profesor no puede ser nulo.");
-		}
-		if (nombre.trim().equals("")) {
-			throw new IllegalArgumentException("ERROR: El nombre del profesor no puede estar vacío.");
-		}
-		this.nombre = nombre;
+	
+	public String getCorreo() {
+		return correo;
 	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	
+	public static Profesor getProfesorFicticio(String correo) {
+		return new Profesor("Alex Balwing", correo);
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -95,7 +115,7 @@ public class Profesor {
 
 	@Override
 	public String toString() {
-		String cadenaTelefono = (telefono == null) ? "" : ", telefono=" + telefono;
+		String cadenaTelefono = (telefono == null) ? "" : ", teléfono=" + telefono;
 		return String.format("nombre=%s, correo=%s%s", nombre, correo, cadenaTelefono);
 	}
 

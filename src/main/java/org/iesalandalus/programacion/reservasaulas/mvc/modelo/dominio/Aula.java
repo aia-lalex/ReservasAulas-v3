@@ -5,19 +5,23 @@ public class Aula {
 	private int puestos;
 	private String nombre;
 	private float PUNTOSXPUESTO= 0.5f;
+	private static final int MIN_PUESTOS = 10;
+	private static final int MAX_PUESTOS = 100;
 
-	public Aula(String nombre) {
+	public Aula(String nombre, int puestos) {	// Metodo constructor
 		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre del aula no puede ser nulo.");
 		}
 		setNombre(nombre);
+		setPuestos(puestos);
 	}
 
-	public Aula(Aula aula) {
+	public Aula(Aula aula) {	// Constructor copia
 		if (aula == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un aula nula.");
 		}
 		setNombre(aula.getNombre());
+		setPuestos(aula.getPuestos());
 	}
 
 
@@ -26,9 +30,22 @@ public class Aula {
 			throw new IllegalArgumentException("ERROR: El nombre del aula no puede ser nulo.");
 		}
 		if (nombre.trim().equals("")) {
-			throw new IllegalArgumentException("ERROREl nombre del aula no puede estar vacío.");
+			throw new IllegalArgumentException("ERROR: El nombre del aula no puede estar vacío.");
 		}
 		this.nombre = nombre;
+	}
+	
+
+	public int getPuestos() {
+		return puestos;
+	}
+	
+
+	private void setPuestos(int puestos) {
+		if (puestos < MIN_PUESTOS || puestos > MAX_PUESTOS) {
+			throw new IllegalArgumentException("ERROR: El número de puestos no es correcto.");
+		}
+		this.puestos = puestos;
 	}
 
 	public String getNombre() {
@@ -39,6 +56,12 @@ public class Aula {
 	public float getPuntos() {
 		return puestos * PUNTOSXPUESTO;
 	}
+	
+	public static Aula getAulaFicticia(String nombre) {
+		return new Aula(nombre, 8);
+	}
+
+	
 
 	@Override
 	public int hashCode() {
@@ -66,7 +89,7 @@ public class Aula {
 
 	@Override
 	public String toString() {
-		return "nombre Aula="+nombre;
+		return "nombre="+nombre+", puestos="+puestos;
 	}
 
 

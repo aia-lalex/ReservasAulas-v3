@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class Reserva {
 
-	Permanencia permanencia;
-	Profesor profesor;
-	Aula aula;
+	private Permanencia permanencia;
+	private Profesor profesor;
+	private Aula aula;
 
 	public Reserva(Profesor profesor, Aula aula, Permanencia permanencia) {
 		setProfesor(profesor);
@@ -24,7 +24,43 @@ public class Reserva {
 		setPermanencia(reserva.getPermanencia());
 
 	}
+	
+	private void setProfesor(Profesor profesor) {
+		if (profesor == null) {
+			throw new NullPointerException("ERROR: La reserva debe estar a nombre de un profesor.");
+		}
+		this.profesor = profesor;
+	}
+	
+	public Profesor getProfesor() {
 
+		return profesor;
+	}
+
+	private void setAula(Aula aula) {
+		if (aula == null) {
+			throw new NullPointerException("ERROR: La reserva debe ser para un aula concreta.");
+		}
+		this.aula = aula;
+	
+	}
+	public Aula getAula() {
+
+		return aula;
+	}
+
+	private void setPermanencia(Permanencia permanencia) {
+		if (permanencia == null) {
+			throw new NullPointerException("ERROR: La reserva se debe hacer para una permanencia concreta.");
+		}
+		if (permanencia instanceof PermanenciaPorTramo) {
+			this.permanencia = new PermanenciaPorTramo((PermanenciaPorTramo)permanencia);
+		} else if (permanencia instanceof PermanenciaPorHora) {
+			this.permanencia = new PermanenciaPorHora((PermanenciaPorHora)permanencia);
+		}
+	}
+
+	
 
 	public Permanencia getPermanencia() {
 
@@ -37,38 +73,7 @@ public class Reserva {
 		return copiaPermanencia;
 	}
 
-	public Profesor getProfesor() {
 
-		return profesor;
-	}
-
-	public Aula getAula() {
-
-		return aula;
-	}
-
-	private void setPermanencia(Permanencia permanencia) {
-		if (permanencia == null) {
-			throw new NullPointerException("ERROR: La reserva se debe hacer para una permanencia concreta.");
-		}
-		this.permanencia = permanencia;
-	}
-
-	private void setProfesor(Profesor profesor) {
-		if (profesor == null) {
-			throw new NullPointerException("ERROR: La reserva debe estar a nombre de un profesor.");
-		}
-		this.profesor = profesor;
-	}
-
-	private void setAula(Aula aula) {
-		if (aula == null) {
-			throw new NullPointerException("ERROR: La reserva debe ser para un aula concreta.");
-		}
-		this.aula = aula;
-	
-	}
-	
 	public static Reserva getReservaFicticia(Aula aula, Permanencia permanencia) {
 		return new Reserva(Profesor.getProfesorFicticio("alexbalwing@hotmail.com"), aula, permanencia);
 	}
@@ -76,30 +81,28 @@ public class Reserva {
 	public float getPuntos() {
 		return permanencia.getPuntos()+ aula.getPuntos();
 	}
+	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(aula, permanencia, profesor);
+		return Objects.hash(aula, permanencia);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (!(obj instanceof Reserva)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		Reserva other = (Reserva) obj;
-		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia)
-				&& Objects.equals(profesor, other.profesor);
+		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia);
 	}
 
 	@Override
 	public String toString() {
-		return "Reserva [permanencia=" + permanencia + ", profesor=" + profesor + ", aula=" + aula
-				+ ", getPermanencia()=" + getPermanencia() + ", getProfesor()=" + getProfesor() + ", getAula()="
-				+ getAula() + ", hashCode()=" + hashCode() + ", getClass()=" + getClass() + ", toString()="
-				+ super.toString() + "]";
+		return String.format("%s, %s, %s, puntos=%.1f", profesor, aula, permanencia, getPuntos());
 	}
 
 

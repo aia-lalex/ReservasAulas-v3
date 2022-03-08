@@ -20,7 +20,6 @@ public abstract class Permanencia {
 			throw  new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
 		}
 
-		setTramo(permanencia.getTramo());
 		setDia(permanencia.getDia());
 
 	}
@@ -38,29 +37,14 @@ public abstract class Permanencia {
 
 
 	public abstract int getPuntos();
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(dia);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Permanencia other = (Permanencia) obj;
-		return Objects.equals(dia, other.dia);
-	}
-
+	public abstract int hashCode();
 	
+	public abstract boolean equals(Object obj);
+
 	@Override
 	public String toString() {
-		return "dia=" + dia.format(FORMATO_DIA);
-
+		return String.format("día=%s", dia.format(FORMATO_DIA));
 	}
 
 

@@ -17,43 +17,42 @@ public class PermanenciaPorTramo extends Permanencia {
 		super(permanencia);
 		setTramo(permanencia.getTramo());
 	}
-
+	
+	public Tramo getTramo() {
+		return tramo;
+	}
+	
+	private void setTramo(Tramo tramo) {
+		if (tramo == null) {
+			throw new NullPointerException("ERROR: El tramo de una permanencia no puede ser nulo.");
+		}
+		this.tramo = tramo;
+	}
 	public int getPuntos() {
 		return PUNTOS;
 	}
 
-	public Tramo getTramo() {
-		return tramo;
-	}
-
-	private void setTramo(Tramo tramo) {
-		if (tramo == null) {
-			throw new NullPointerException("ERROR: El tramo no puede ser nulo.");
-		}
-		this.tramo = tramo;
-	}
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(tramo);
-		return result;
+		return Objects.hash(getDia(), tramo);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!(obj instanceof PermanenciaPorTramo)) {
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		}
 		PermanenciaPorTramo other = (PermanenciaPorTramo) obj;
-		return tramo == other.tramo;
+		return Objects.equals(getDia(), other.getDia()) && tramo == other.tramo;
 	}
+
+	
 	@Override
 	public String toString() {
 		return String.format("%s, tramo=%s", super.toString(), tramo);
 	}
-	
-	
+
 }
