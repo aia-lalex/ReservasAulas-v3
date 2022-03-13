@@ -29,24 +29,23 @@ public class Reserva {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: La reserva debe estar a nombre de un profesor.");
 		}
-		this.profesor = profesor;
+		this.profesor = new Profesor(profesor);
 	}
 	
 	public Profesor getProfesor() {
 
-		return profesor;
+		return new Profesor(profesor);
 	}
 
 	private void setAula(Aula aula) {
 		if (aula == null) {
 			throw new NullPointerException("ERROR: La reserva debe ser para un aula concreta.");
 		}
-		this.aula = aula;
-	
+		this.aula = new Aula(aula);
 	}
 	public Aula getAula() {
 
-		return aula;
+		return new Aula(aula);
 	}
 
 	private void setPermanencia(Permanencia permanencia) {

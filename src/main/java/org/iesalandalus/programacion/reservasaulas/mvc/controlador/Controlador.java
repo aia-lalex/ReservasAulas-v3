@@ -4,24 +4,26 @@ import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.Modelo;
+
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.IModelo;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
+import org.iesalandalus.programacion.reservasaulas.mvc.vista.IVista;
+
 
 public class Controlador implements IControlador {
 
-	Vista vista;
-	Modelo modelo;
+	private IVista vista;
+	private IModelo modelo;
 	// constructor
-	public Controlador(Modelo modelo, Vista vista) {
+	public Controlador(IModelo modelo, IVista vista) {
 		if (modelo == null) {
-			throw new IllegalArgumentException("ERROR: El modelo no	puede ser nulo.");
+			throw new NullPointerException("ERROR: El modelo no	puede ser nulo.");
 		}
 		if (vista == null) {
-			throw new IllegalArgumentException("ERROR: La vista no puede ser nula.");
+			throw new NullPointerException("ERROR: La vista no puede ser nula.");
 		}
 		this.modelo = modelo;
 		this.vista = vista;
@@ -76,7 +78,7 @@ public class Controlador implements IControlador {
 		modelo.anularReserva(reserva);
 	}
 	public List<Reserva> getReservasAula(Aula aula) {
-		return modelo.getReservasAula(aula);
+		return modelo.getReservaAula(aula);
 	}
 	public List<Reserva> getReservasProfesor(Profesor profesor) {
 		return modelo.getReservasProfesor(profesor);

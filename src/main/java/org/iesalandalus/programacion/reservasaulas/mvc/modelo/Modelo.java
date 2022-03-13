@@ -10,7 +10,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Au
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Profesores;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Reservas;
 
-public class Modelo {
+public class Modelo implements IModelo{
 
 	private Profesores profesores;
 	private Aulas aulas;
@@ -46,8 +46,8 @@ public class Modelo {
 		aulas.borrar(borrar);
 	}
 
-	public Profesor[] getProfesores() {
-		return getProfesores();
+	public List<Profesor> getProfesores() {
+		return profesores.getProfesores();
 	}
 
 	public int getNumProfesores() {
@@ -94,7 +94,7 @@ public class Modelo {
 		reservas.borrar(anular);
 	}
 
-	public List<Reserva> getReservasAula(Aula aula) {
+	public List<Reserva> getReservaAula(Aula aula) {
 		return reservas.getReservasAula(aula);
 	}
 

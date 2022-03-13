@@ -92,11 +92,12 @@ public class Profesores implements IProfesores {
 	}
 
 	public List<String> representar() {
-		List<String> representacion = new ArrayList<>();
-		for (Profesor profesor : coleccionProfesores){
-			representacion.add(profesor.toString());
+		List<String>  cadena = new ArrayList<>();;
+		Iterator<Profesor> it = coleccionProfesores.iterator();
+		while (it.hasNext()) {
+			cadena.add(it.next().toString());
 		}
-		return representacion;
+		return cadena;
 	}
 
 

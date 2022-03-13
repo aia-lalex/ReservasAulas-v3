@@ -14,11 +14,11 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Re
 
 public class Vista implements IVista {
 
-
+/*
 	private static final String ERROR = "ERROR: ";
 	private static final String NOMBRE_VALIDO = "Alex";
-	private static final String CORREO_VALIDO = "aia-lalex@hotmail.es";
-	private Controlador controlador;
+	private static final String CORREO_VALIDO = "aia-lalex@hotmail.es"; */
+	private IControlador controlador;
 
 
 	public Vista() {
@@ -53,7 +53,7 @@ public class Vista implements IVista {
 			controlador.insertarAula(aula);
 			System.out.println("Aula insertado correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -63,7 +63,7 @@ public class Vista implements IVista {
 			controlador.borrarAula(Consola.leerAula());
 			System.out.println("Aula borrada correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -78,7 +78,7 @@ public class Vista implements IVista {
 				System.out.println("ERROR: No existe ningún aula con dicho nombre.");
 			}
 		} catch (IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -101,7 +101,7 @@ public class Vista implements IVista {
 			controlador.insertarProfesor(Consola.leerProfesor());
 			System.out.println("Profesor insertado correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -112,7 +112,7 @@ public class Vista implements IVista {
 			controlador.borrarProfesor(Consola.leerProfesor());
 			System.out.println("Profesor borrado correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -125,7 +125,7 @@ public class Vista implements IVista {
 			String mensaje = (profesor != null) ? profesor.toString() : "ERROR: No existe dicho profesor.";
 			System.out.println(mensaje);
 		} catch (IllegalArgumentException e) {
-			System.out.println(ERROR + e.getMessage());
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -148,6 +148,7 @@ public class Vista implements IVista {
 		boolean centinelaDisponibilidad = false;
 		Aula aula = null;
 		Permanencia permanencia = null;
+		
 		do {
 			do {
 				aula = Consola.leerAula();
@@ -165,7 +166,6 @@ public class Vista implements IVista {
 		} while (!centinela);
 		return reserva;
 	}
-
 
 
 	public void realizarReserva() {

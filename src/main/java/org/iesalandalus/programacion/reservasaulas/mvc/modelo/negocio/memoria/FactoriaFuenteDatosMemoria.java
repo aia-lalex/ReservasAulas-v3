@@ -7,6 +7,10 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
 public class FactoriaFuenteDatosMemoria implements IFuenteDatos{
 
+	public FactoriaFuenteDatosMemoria() {
+		
+	}
+	
 	@Override
 	public IAulas crearAulas() {
 		return new Aulas(0);

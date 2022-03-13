@@ -2,12 +2,11 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public abstract class Permanencia {
 
 	private LocalDate dia;
-	static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	public Permanencia(LocalDate dia) {
 		setDia(dia);
@@ -18,10 +17,9 @@ public abstract class Permanencia {
 	public Permanencia(Permanencia permanencia) {
 		if (permanencia == null) {
 			throw  new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
+		} else {
+			setDia(permanencia.getDia());
 		}
-
-		setDia(permanencia.getDia());
-
 	}
 
 	public LocalDate getDia() {

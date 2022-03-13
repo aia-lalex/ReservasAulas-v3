@@ -89,10 +89,11 @@ public class Aulas implements IAulas{
 	// To string
 
 	public List<String> representar() {
-		List<String> representacion = new ArrayList<>();
-		for ( Aula aula : coleccionAulas){
-			representacion.add(aula.toString());
+		List<String> cadena = new ArrayList<>();
+		Iterator<Aula> it = coleccionAulas.iterator();
+		while (it.hasNext()) {
+			cadena.add(it.next().toString());
 		}
-		return representacion;
+		return cadena;
 	}
 }
