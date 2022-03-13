@@ -5,6 +5,7 @@ import java.util.List;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
 
 public interface IProfesores {
 
@@ -19,5 +20,9 @@ public interface IProfesores {
 	void borrar(Profesor profesor) throws OperationNotSupportedException;
 	
 	List<String> representar();
+
+	void comenzar();
+
+	void terminar();
 	
 }

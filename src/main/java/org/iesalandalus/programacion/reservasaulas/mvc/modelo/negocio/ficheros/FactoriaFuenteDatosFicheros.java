@@ -1,24 +1,24 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria;
+package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.IFuenteDatos;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IProfesores;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
 
-public class FactoriaFuenteDatosMemoria implements IFuenteDatos{
+public class FactoriaFuenteDatosFicheros implements IFuenteDatos{
 
-	public FactoriaFuenteDatosMemoria() {
+	public FactoriaFuenteDatosFicheros() {
 		
 	}
 	
 	@Override
 	public IAulas crearAulas() {
-		return new Aulas(0);
+		return new Aulas();
 	}
 
 	@Override
 	public IProfesores crearProfesores() {
-		return new Profesores(null);
+		return new Profesores();
 	}
 
 	@Override

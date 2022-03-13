@@ -1,5 +1,13 @@
-package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria;
+package org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,19 +27,59 @@ public class Reservas implements IReservas{
 
 	private List<Reserva> coleccionReservas;
 	private static final float MAX_PUNTOS_PROFESOR_MES = 200.f;
+	private static final String NOMBRE_FICHERO_RESERVAS = "datos/reservas.dat";
+
 
 	public Reservas() {
 		coleccionReservas = new ArrayList<>();
 	}
 
-
-	public Reservas (Reservas reservas) {			
-		setReservas(reservas);
+	@Override
+	public void comenzar() {
+		leer();
 	}
 
+	private void leer() {
+		File ficheroAulas = new File(NOMBRE_FICHERO_RESERVAS);
+		try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ficheroAulas))) {
+			Reserva reserva = null;
+			do {
+				reserva = (Reserva) entrada.readObject();
+				insertar(reserva);
+			} while (reserva != null);
+		} catch (ClassNotFoundException e) {
+			System.out.println("No puedo encontrar la clase que tengo que leer.");
+		} catch (FileNotFoundException e) {
+			System.out.println("No puedo abrir el fihero de reservas.");
+		} catch (EOFException e) {
+			System.out.println("Fichero reservas leído satisfactoriamente.");
+		} catch (IOException e) {
+			System.out.println("Error inesperado de Entrada/Salida.");
+		} catch (OperationNotSupportedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
-
-	private void setReservas(Reservas reservas) {
+	@Override
+	public void terminar() {
+		escribir();
+	}
+	
+	private void escribir() {
+		File ficheroAulas = new File(NOMBRE_FICHERO_RESERVAS);
+		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAulas))){
+			for (Reserva reserva : coleccionReservas)
+				salida.writeObject(reserva);
+			System.out.println("Fichero reservas escrito satisfactoriamente.");
+		} catch (FileNotFoundException e) {
+			System.out.println("No puedo crear el fichero de reservas.");
+		} catch (IOException e) {
+			System.out.println("Error inesperado de Entrada/Salida.");
+		}
+	}
+	
+	
+	private void setReservas(IReservas reservas) {
 		if (reservas == null) {
 			throw new NullPointerException("ERROR: No se pueden copiar reservas nulas.");
 		}
@@ -39,22 +87,39 @@ public class Reservas implements IReservas{
 	}
 
 
-		private List<Reserva> copiaProfundaReservas(List<Reserva> reservas) {
+		private List<Reserva> copiaProfundaReservas() {
 			List<Reserva> otrasReservas = new ArrayList<>() ;
-			for (Reserva reserva : reservas) {
-				otrasReservas.add(new Reserva(reserva));
+			Iterator<Reserva> it = coleccionReservas.iterator();
+			while (it.hasNext()) {
+				otrasReservas.add(new Reserva(it.next()));
 			}
 			return otrasReservas;
 		}
 
 		public List<Reserva> getReservas() {
-			return copiaProfundaReservas(coleccionReservas);
+			List<Reserva> reservasOrdenadas = copiaProfundaReservas();
+		    Comparator<Aula> comparadorAula = Comparator.comparing(Aula::getNombre);
+		    Comparator<Permanencia> comparadorPermanencia = (Permanencia p1, Permanencia p2) -> {
+		      int comparacion = -1;
+		      if (p1.getDia().equals(p2.getDia())) {
+		        if (p1 instanceof PermanenciaPorTramo && p2 instanceof PermanenciaPorTramo) {
+		          comparacion = Integer.compare(((PermanenciaPorTramo)p1).getTramo().ordinal(), ((PermanenciaPorTramo)p2).getTramo().ordinal());
+		        } else if (p1 instanceof PermanenciaPorHora && p2 instanceof PermanenciaPorHora) {
+		          comparacion = ((PermanenciaPorHora)p1).getHora().compareTo(((PermanenciaPorHora)p2).getHora());
+		        }
+		      } else {
+		        comparacion = p1.getDia().compareTo(p2.getDia());
+		      }
+		      return comparacion;
+		    };
+		    reservasOrdenadas.sort(Comparator.comparing(Reserva::getAula, comparadorAula).thenComparing(Reserva::getPermanencia, comparadorPermanencia));
+		    return reservasOrdenadas;
 		}
-
+		
+		
 		public int getNumReservas() {
 			return coleccionReservas.size();
 		}
-
 
 		@Override
 		public void insertar(Reserva reserva) throws OperationNotSupportedException {

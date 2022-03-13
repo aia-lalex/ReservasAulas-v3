@@ -30,15 +30,17 @@ public class Controlador implements IControlador {
 		this.vista.setControlador(this);
 
 	}
-
+	@Override
 	public void comenzar() {
+		modelo.comenzar();
 		vista.comenzar();
 	}
 
+	@Override
 	public void terminar() {
-		System.out.println("¡Hasta luegorrr!");
+		modelo.terminar();
+		System.out.println("Hasta luegorrr");
 	}
-
 	public void insertarAula(Aula aula) throws OperationNotSupportedException {
 		modelo.insertarAula(aula);
 	}

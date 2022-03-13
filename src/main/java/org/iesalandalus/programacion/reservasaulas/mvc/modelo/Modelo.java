@@ -6,21 +6,41 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Aulas;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Profesores;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Reservas;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IProfesores;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Aulas;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Profesores;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Reservas;
 
 public class Modelo implements IModelo{
 
-	private Profesores profesores;
-	private Aulas aulas;
-	private Reservas reservas;
 
-	public Modelo() {
-		profesores = new Profesores(profesores);
-		aulas = new Aulas(aulas);
-		reservas = new Reservas();
+	private IProfesores profesores;
+	private IAulas aulas;
+	private IReservas reservas;
+	
+	public Modelo(IFuenteDatos fuenteDatos) {
+		profesores = fuenteDatos.crearProfesores();
+		aulas = fuenteDatos.crearAulas();
+		reservas = fuenteDatos.crearReservas();
 	}
+	
+	
+	@Override
+	public void comenzar() {
+		profesores.comenzar();
+		aulas.comenzar();
+		reservas.comenzar();			
+	}
+	@Override
+	public void terminar() {
+		profesores.terminar();
+		aulas.terminar();
+		reservas.terminar();
+	}
+	
+	
 	public List<Aula> getAulas() {
 		return aulas.getAulas();
 	}

@@ -1,5 +1,4 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
-import com.google.common.base.Objects;
 
 public class Aula {
 	private int puestos;

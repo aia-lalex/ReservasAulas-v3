@@ -13,4 +13,8 @@ public interface IAulas {
 	public Aula buscar(Aula aula);
 	public void borrar (Aula aula) throws OperationNotSupportedException;	
 	public List<String> representar();
+	void comenzar();
+
+	void terminar();
+
 }

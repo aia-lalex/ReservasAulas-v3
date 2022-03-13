@@ -10,7 +10,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.memoria.Reservas;
+import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Reservas;
 
 public class Vista implements IVista {
 
@@ -142,36 +142,12 @@ public class Vista implements IVista {
 		}
 	}
 
-	private Reserva leerReserva() {
-		Reserva reserva = null;
-		boolean centinela = false;
-		boolean centinelaDisponibilidad = false;
-		Aula aula = null;
-		Permanencia permanencia = null;
-		
-		do {
-			do {
-				aula = Consola.leerAula();
-				permanencia = new Permanencia(Consola.leerDia(), Consola.leerTramo());
-				if (controlador.consultarDisponibilidad(aula, permanencia)) {
-					centinelaDisponibilidad = true;
-				}
-			} while (!centinelaDisponibilidad);
-			try {
-				reserva = new Reserva(Consola.leerProfesor(), aula, permanencia);
-				centinela = true;
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		} while (!centinela);
-		return reserva;
-	}
-
+	
 
 	public void realizarReserva() {
 		try {
 		System.out.println("Relizar reserva");
-		Reserva reserva = leerReserva();
+		Reserva reserva = Consola.leerReserva();
 		Boolean centinela = true;
 		if (controlador.buscarAula(reserva.getAula()) == null) {
 			System.out.println("ERROR: El aula no esta en listado");
@@ -192,7 +168,7 @@ public class Vista implements IVista {
 	public void anularReserva() {
 		try {
 			System.out.println("Anular reserva");
-			controlador.anularReserva(leerReserva());
+			controlador.anularReserva(Consola.leerReserva());
 			System.out.println("Reserva eliminda con éxito");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -243,7 +219,7 @@ public class Vista implements IVista {
 		if (controlador.buscarAula(aula) == null) {
 			System.out.println("El aula no esta en el listado");
 		} else {
-			if (controlador.consultarDisponibilidad(aula, new Permanencia(Consola.leerDia(), Consola.leerTramo()))) {
+			if (controlador.consultarDisponibilidad(Consola.leerAulaFicticia(), Consola.leerPermanencia())) {
 				System.out.println("ERROR: El aula esta disponible");
 			} else {
 				System.out.println("ERROR: El aula no esta disponible");
