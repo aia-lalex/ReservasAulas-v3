@@ -20,7 +20,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 public class Aulas implements IAulas{
 
 	private List <Aula> coleccionAulas;
-	private static final String NOMBRE_FICHERO_AULAS = "FAULAS";
+	private static final String NOMBRE_FICHERO_AULAS = "datos/aulas.dat";
 
 	// constructor por defecto
 
