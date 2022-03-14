@@ -32,7 +32,7 @@ public class Aulas implements IAulas{
 	public void comenzar() {
 		leer();
 	}
-	
+// Metodo leer fichero
 	private void leer() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_AULAS);
 		try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ficheroAulas))) {
@@ -53,12 +53,8 @@ public class Aulas implements IAulas{
 			System.out.println(e.getMessage());
 		}
 	}
+// Escribe en archivo
 
-	@Override
-	public void terminar() {
-		escribir();
-	}
-	
 	private void escribir() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_AULAS);
 		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAulas))){
@@ -71,6 +67,12 @@ public class Aulas implements IAulas{
 			System.out.println("Error inesperado de Entrada/Salida.");
 		}
 	}
+	// metodo terminar y grabar en archivo
+	@Override
+	public void terminar() {
+		escribir();
+	}
+	
 	public List<Aula> getAulas() {
 		return copiaProfundaAulas(coleccionAulas);
 	}
@@ -87,10 +89,10 @@ public class Aulas implements IAulas{
 	public int getNumAulas() {
 		return coleccionAulas.size();
 	}
-
+// Inserta Aula
 	public void insertar(Aula aula) throws OperationNotSupportedException {
 		if (aula == null) {
-			throw new IllegalArgumentException("ERROR: No se puede insertar un aula nula.");
+			throw new NullPointerException("ERROR: No se puede insertar un aula nula.");
 		}
 		if (coleccionAulas.contains(aula)){
 			throw new OperationNotSupportedException("ERROR: No se aceptan más aulas.");
@@ -100,7 +102,7 @@ public class Aulas implements IAulas{
 
 
 
-
+// Borra aula
 	public void borrar(Aula aula) throws OperationNotSupportedException {
 		if (aula == null) {
 			throw new IllegalArgumentException("ERROR: No se puede borrar un aula nula.");

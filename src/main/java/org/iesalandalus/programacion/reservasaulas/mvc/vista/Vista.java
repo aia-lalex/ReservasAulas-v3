@@ -14,24 +14,21 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.R
 
 public class Vista implements IVista {
 
-/*
-	private static final String ERROR = "ERROR: ";
-	private static final String NOMBRE_VALIDO = "Alex";
-	private static final String CORREO_VALIDO = "aia-lalex@hotmail.es"; */
+
 	private IControlador controlador;
 
-
-	public Vista() {
+// Constructor por defecto
+	public Vista () {
 
 		Opcion.setVista(this);
 	}
-	public void setControlador(Controlador controlador) {
+	public void setControlador(IControlador controlador) {
 		if (controlador == null) {
 			throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
 		}
 		this.controlador = controlador;
 	}
-
+// Muestra menu, elegir opcion y ejecuta
 	public void comenzar() {
 		int ordinalOpcion;
 		do {
@@ -41,11 +38,12 @@ public class Vista implements IVista {
 			opcion.ejecutar();
 		} while (ordinalOpcion != Opcion.SALIR.ordinal());
 	}
-
+// Salir y grabar en archivo
 	public void salir() {
+		controlador.terminar();
 		System.out.println("Aplicación finalizada");;
 	}
-
+// inserta aula
 	public void insertarAula() {
 		Consola.mostrarCabecera("Insertar aula");
 		try {
@@ -56,7 +54,7 @@ public class Vista implements IVista {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Borra aula
 	public void borrarAula() {
 		Consola.mostrarCabecera("Borrar aula");
 		try {
@@ -66,7 +64,7 @@ public class Vista implements IVista {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Buscar aula
 	public void buscarAula() {
 		Consola.mostrarCabecera("Buscar aula");
 		Aula aula = null;
@@ -81,7 +79,7 @@ public class Vista implements IVista {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Listar aulas
 	public void listarAulas() {
 		Consola.mostrarCabecera("LISTADO DE AULAS");
 		List<String> listaAulas = controlador.representarAulas();
@@ -94,17 +92,17 @@ public class Vista implements IVista {
 			System.out.println("ERROR: No hay aulas que listar.");
 		}
 	
-      
+   // insertar profesor   
 	public void insertarProfesor() {
 		Consola.mostrarCabecera("Insertar profesor");
 		try {
 			controlador.insertarProfesor(Consola.leerProfesor());
 			System.out.println("Profesor insertado correctamente.");
-		} catch (OperationNotSupportedException|IllegalArgumentException e) {
+		} catch (OperationNotSupportedException|NullPointerException|IllegalArgumentException e) {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Borrar profesor
 	public void borrarProfesor() {
 		String nombre="";
 		Consola.mostrarCabecera("Borrar profesor");
@@ -115,7 +113,7 @@ public class Vista implements IVista {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Buscar profesor
 	public void buscarProfesor() {
 		Consola.mostrarCabecera("Buscar profesor");
 		Profesor profesor = null;
@@ -128,7 +126,7 @@ public class Vista implements IVista {
 			System.out.println(e.getMessage());
 		}
 	}
-
+// Listar profesor
 	public void listarProfesores() {
 		Consola.mostrarCabecera("Listar profesores");;
 		List<String> listaProfesores = controlador.representarProfesores();
@@ -143,7 +141,7 @@ public class Vista implements IVista {
 	}
 
 	
-
+// Realizar reserva
 	public void realizarReserva() {
 		try {
 		System.out.println("Relizar reserva");
@@ -165,6 +163,7 @@ public class Vista implements IVista {
 		System.out.println(e.getMessage());
 	}
 }
+// Anular reserva
 	public void anularReserva() {
 		try {
 			System.out.println("Anular reserva");
@@ -175,7 +174,7 @@ public class Vista implements IVista {
 		}
 	}
 
-
+// Listar reserva
 	public void listarReservas() {
 		Consola.mostrarCabecera("Listar reservas");
 		List<String> reservas = controlador.representarReservas();
@@ -188,6 +187,8 @@ public class Vista implements IVista {
 			System.out.println("ERROR: No hay reservas para mostrar");
 		}
 	}
+
+// Listar reserva aula
 	public void listarReservasAula() {
 		Consola.mostrarCabecera("Listar reservas por aula");
 		List<Reserva> reservas = controlador.getReservasAula(Consola.leerAula());
@@ -200,6 +201,7 @@ public class Vista implements IVista {
 			System.out.println("ERROR: No hay reservas para mostrar");
 		}
 	}
+// Listar reserva profesor
 	public void listarReservasProfesor() {
 		Consola.mostrarCabecera("Listado de Reservas por Profesor");
 		List<Reserva> reservas = controlador.getReservasProfesor(Consola.leerProfesorFicticio());
@@ -212,7 +214,7 @@ public class Vista implements IVista {
 			System.out.println("ERROR: No hay reservas, para dicho profesor, que mostrar.");
 		}
 	}
-	
+// Consultar disponibilidad	
 	public void consultarDisponibilidad() {
 		Consola.mostrarCabecera("Consultar diponibilidad");
 		Aula aula = Consola.leerAula();
@@ -226,12 +228,7 @@ public class Vista implements IVista {
 			}
 		}
 
-	}
-	@Override
-	public void setControlador(IControlador controlador) {
-		// TODO Auto-generated method stub
-		
-	}
+}
 	@Override
 	public void terminar() {
 		// TODO Auto-generated method stub

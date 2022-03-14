@@ -12,17 +12,17 @@ public class FactoriaFuenteDatosFicheros implements IFuenteDatos{
 	}
 	
 	@Override
-	public IAulas crearAulas() {
+	public IAulas crearAulas() { // Crea aulas
 		return new Aulas();
 	}
 
 	@Override
-	public IProfesores crearProfesores() {
+	public IProfesores crearProfesores() { // Crea profesores
 		return new Profesores();
 	}
 
 	@Override
-	public IReservas crearReservas() {
+	public IReservas crearReservas() { // Crea reserva
 		return new Reservas();
 	}
 

@@ -25,10 +25,10 @@ public class Aula implements Serializable {
 		setPuestos(aula.getPuestos());
 	}
 
-
+// Establecemos nombre de aula
 	private void setNombre(String nombre) {
 		if (nombre == null) {
-			throw new IllegalArgumentException("ERROR: El nombre del aula no puede ser nulo.");
+			throw new NullPointerException("ERROR: El nombre del aula no puede ser nulo.");
 		}
 		if (nombre.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El nombre del aula no puede estar vacío.");
@@ -36,7 +36,7 @@ public class Aula implements Serializable {
 		this.nombre = nombre;
 	}
 	
-
+// Muestra puestos
 	public int getPuestos() {
 		return puestos;
 	}
@@ -57,7 +57,7 @@ public class Aula implements Serializable {
 	public float getPuntos() {
 		return puestos * PUNTOSXPUESTO;
 	}
-	
+// Muestra aula ficticia	
 	public static Aula getAulaFicticia(String nombre) {
 		return new Aula(nombre, 8);
 	}

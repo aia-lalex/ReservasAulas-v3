@@ -17,7 +17,7 @@ public class Controlador implements IControlador {
 
 	private IVista vista;
 	private IModelo modelo;
-	// constructor
+	// constructor por defecto
 	public Controlador(IModelo modelo, IVista vista) {
 		if (modelo == null) {
 			throw new NullPointerException("ERROR: El modelo no	puede ser nulo.");
@@ -30,12 +30,13 @@ public class Controlador implements IControlador {
 		this.vista.setControlador(this);
 
 	}
+	// Comenzar en modelo y vista
 	@Override
 	public void comenzar() {
 		modelo.comenzar();
 		vista.comenzar();
 	}
-
+	// Terminar en modelo y vista
 	@Override
 	public void terminar() {
 		modelo.terminar();

@@ -24,7 +24,7 @@ public class Profesores implements IProfesores {
 	private static final String NOMBRE_FICHERO_PROFESORES = "datos/profesores.dat";
 
 
-
+// contructor por defecto
 	public Profesores() {
 		coleccionProfesores = new ArrayList<>();
 	}
@@ -34,7 +34,7 @@ public class Profesores implements IProfesores {
 	public void comenzar() {
 		leer();
 	}
-	
+	// lee fichero de profesoreas
 	
 	private void leer() {
 		File ficheroProfesores = new File(NOMBRE_FICHERO_PROFESORES);
@@ -57,11 +57,7 @@ public class Profesores implements IProfesores {
 		}
 	}
 
-	@Override
-	public void terminar() {
-		escribir();
-	}
-	
+	// Metodo escribir
 	
 	private void escribir() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_PROFESORES);
@@ -76,7 +72,12 @@ public class Profesores implements IProfesores {
 		}
 	}
 	
+	@Override
+	public void terminar() {
+		escribir();
+	}
 	
+	// Crea un profesor
 	private void setProfesores(IProfesores profesores) {
 		if (profesores == null) {
 			throw new NullPointerException("ERROR: No se pueden instanciar profesores nulos.");
@@ -85,7 +86,7 @@ public class Profesores implements IProfesores {
 	}
 
 	
-
+// copia todos los profesores
 	private List<Profesor> copiaProfundaProfesores() {
 		List<Profesor> otrosProfesores = new ArrayList<>();
 		Iterator<Profesor> it = otrosProfesores.iterator();
@@ -94,7 +95,7 @@ public class Profesores implements IProfesores {
 		}
 		return otrosProfesores;
 	}
-
+// lista todos los profesoreas
 	public List<Profesor> getProfesores() {
 		List<Profesor> copiaProfundaProfesores = copiaProfundaProfesores();
 		copiaProfundaProfesores.sort(Comparator.comparing(Profesor::getCorreo));
@@ -102,14 +103,14 @@ public class Profesores implements IProfesores {
 
 	}
 
-	
+	// Muestra el numero de profesores
 
 	public int getNumProfesores() {
 		return coleccionProfesores.size();
 	}
 
 
-
+// inserta un profesor
 		public void insertar(Profesor profesor) throws OperationNotSupportedException {
 			if (profesor == null) {
 				throw new NullPointerException("ERROR: No se puede insertar un profesor nulo.");
@@ -121,6 +122,7 @@ public class Profesores implements IProfesores {
 			}
 
 		}
+	//Buscar un profesor	
 		public Profesor buscar(Profesor profesor) throws IllegalArgumentException, NullPointerException {
 			if (profesor == null) {
 				throw new NullPointerException("ERROR: No se puede buscar un profesor nulo.");
@@ -134,7 +136,7 @@ public class Profesores implements IProfesores {
 			return null;
 
 		}
-		
+	// Borra un profesor	
 	public void borrar(Profesor profesor) throws OperationNotSupportedException {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No se puede borrar un profesor nulo.");
@@ -151,7 +153,7 @@ public class Profesores implements IProfesores {
 			throw new OperationNotSupportedException("ERROR: No existe ningún profesor con ese nombre.");
 		} 
 	}
-
+// lista los profesores
 	public List<String> representar() {
 		List<String>  cadena = new ArrayList<>();;
 		Iterator<Profesor> it = coleccionProfesores.iterator();

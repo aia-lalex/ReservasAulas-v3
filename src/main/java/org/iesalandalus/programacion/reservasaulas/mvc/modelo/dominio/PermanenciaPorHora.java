@@ -13,19 +13,21 @@ public class PermanenciaPorHora extends Permanencia implements Serializable {
 	protected static final DateTimeFormatter FORMATO_HORA = DateTimeFormatter.ofPattern("hh:mm");
 	private LocalTime hora;
 	
+	// constructor por defecto
 	public PermanenciaPorHora(LocalDate dia,LocalTime hora) {
 		super(dia);
 		setHora(hora);
 	}
-
+// contructor copia
 	public PermanenciaPorHora(PermanenciaPorHora permanencia) {
 		super(permanencia);
 		setHora(permanencia.getHora());
 	}
+	// muestra hora
 	public LocalTime getHora() {
 		return hora;
 	}
-
+// metodo inserta hora
 	private void setHora(LocalTime hora) {
 		if (hora == null) {
 			throw new NullPointerException("ERROR: La hora de una permanencia no puede ser nula.");
@@ -39,7 +41,7 @@ public class PermanenciaPorHora extends Permanencia implements Serializable {
 		this.hora = hora;
 	}
 
-
+// muestra puntos
 	public int getPuntos() {
 		return PUNTOS;
 	}

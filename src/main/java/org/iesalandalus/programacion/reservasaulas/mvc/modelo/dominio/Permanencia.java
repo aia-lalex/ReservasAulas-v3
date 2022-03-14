@@ -9,12 +9,14 @@ public abstract class Permanencia implements Serializable {
 	private LocalDate dia;
 	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+	
+	// constructor por defecto
 	public Permanencia(LocalDate dia) {
 		setDia(dia);
 	
 
 	}
-
+// constructor copia
 	public Permanencia(Permanencia permanencia) {
 		if (permanencia == null) {
 			throw  new NullPointerException("ERROR: No se puede copiar una permanencia nula.");
@@ -22,11 +24,11 @@ public abstract class Permanencia implements Serializable {
 			setDia(permanencia.getDia());
 		}
 	}
-
+// Devuelve el dia
 	public LocalDate getDia() {
 		return dia;
 	}
-
+// seleccionamos dia
 	private void setDia(LocalDate dia) {
 		if (dia == null) {
 			throw new NullPointerException("ERROR: El día de una permanencia no puede ser nulo.");

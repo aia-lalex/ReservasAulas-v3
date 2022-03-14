@@ -8,27 +8,29 @@ public class PermanenciaPorTramo extends Permanencia implements Serializable{
 
 	private static final int PUNTOS=10;
 	private Tramo tramo;
-	
+	// Constructor por defecto
 	public PermanenciaPorTramo(LocalDate dia, Tramo tramo) {
 		super(dia);
 		setTramo(tramo);
 		
 	}
+	// Constructor copia
 	public PermanenciaPorTramo(PermanenciaPorTramo permanencia) {
 		super(permanencia);
 		setTramo(permanencia.getTramo());
 	}
-	
+	// muestra tramo
 	public Tramo getTramo() {
 		return tramo;
 	}
-	
+	// inserta tramo
 	private void setTramo(Tramo tramo) {
 		if (tramo == null) {
 			throw new NullPointerException("ERROR: El tramo de una permanencia no puede ser nulo.");
 		}
 		this.tramo = tramo;
 	}
+	// muestra puntos
 	public int getPuntos() {
 		return PUNTOS;
 	}

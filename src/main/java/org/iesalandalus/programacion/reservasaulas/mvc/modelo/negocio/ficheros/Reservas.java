@@ -38,7 +38,7 @@ public class Reservas implements IReservas{
 	public void comenzar() {
 		leer();
 	}
-
+// Leemos el fichero
 	private void leer() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_RESERVAS);
 		try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ficheroAulas))) {
@@ -60,11 +60,7 @@ public class Reservas implements IReservas{
 		}
 	}
 
-	@Override
-	public void terminar() {
-		escribir();
-	}
-	
+// Escribimos en el fichero
 	private void escribir() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_RESERVAS);
 		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAulas))){
@@ -77,6 +73,11 @@ public class Reservas implements IReservas{
 			System.out.println("Error inesperado de Entrada/Salida.");
 		}
 	}
+	// Metodo terminar y llamamos a escribir
+	@Override
+	public void terminar() {
+		escribir();
+	}
 	
 	
 	private void setReservas(IReservas reservas) {
@@ -86,7 +87,7 @@ public class Reservas implements IReservas{
 		this.coleccionReservas = reservas.getReservas();
 	}
 
-
+// Hacemos copia de reservas y listamos reservas
 		private List<Reserva> copiaProfundaReservas() {
 			List<Reserva> otrasReservas = new ArrayList<>() ;
 			Iterator<Reserva> it = coleccionReservas.iterator();
@@ -95,7 +96,7 @@ public class Reservas implements IReservas{
 			}
 			return otrasReservas;
 		}
-
+// listamos reservas
 		public List<Reserva> getReservas() {
 			List<Reserva> reservasOrdenadas = copiaProfundaReservas();
 		    Comparator<Aula> comparadorAula = Comparator.comparing(Aula::getNombre);
@@ -116,11 +117,11 @@ public class Reservas implements IReservas{
 		    return reservasOrdenadas;
 		}
 		
-		
+		// Listamos cantidad de reservas
 		public int getNumReservas() {
 			return coleccionReservas.size();
 		}
-
+// Insertamos reservas
 		@Override
 		public void insertar(Reserva reserva) throws OperationNotSupportedException {
 			if (reserva == null) {
@@ -158,7 +159,7 @@ public class Reservas implements IReservas{
 			LocalDate primerDiaMesSiguiente = LocalDate.of(dentroDeUnMes.getYear(), dentroDeUnMes.getMonth(), 1);
 			return diaReserva.isAfter(primerDiaMesSiguiente) || diaReserva.equals(primerDiaMesSiguiente);
 		}
-
+// Muestra puntos gastados por reserva
 		private float getPuntosGastadosReserva(Reserva reserva) {
 			float puntosGastados = 0;
 			for (Reserva reservaProfesor : getReservasProfesorMes(reserva.getProfesor(), reserva.getPermanencia().getDia())) {
@@ -166,7 +167,7 @@ public class Reservas implements IReservas{
 			}
 			return puntosGastados + reserva.getPuntos();
 		}
-
+// Busca aula por profesor y dia
 		private List<Reserva> getReservasProfesorMes(Profesor profesor, LocalDate mes) {
 			if (profesor == null) {
 				throw new NullPointerException("No se pueden buscar reservas de un profesor nulo.");
@@ -182,7 +183,7 @@ public class Reservas implements IReservas{
 			}
 			return reservasProfesor;
 		}
-
+// Busca aula por aula y dia
 		private Reserva getReservasAulaDia(Aula aula, LocalDate dia) {
 			if (dia == null) {
 				throw new NullPointerException("ERROR: No se puede buscar reserva para un día nulo.");
@@ -197,7 +198,7 @@ public class Reservas implements IReservas{
 			return null;
 		}
 
-
+// Buscar reserva
 		public Reserva buscar(Reserva reserva) {
 			int indice = coleccionReservas.indexOf(reserva);
 
@@ -208,7 +209,7 @@ public class Reservas implements IReservas{
 			}
 		}
 
-
+// Borrar reserva
 		public void borrar(Reserva reserva) throws OperationNotSupportedException {
 			if (reserva == null) {
 				throw new IllegalArgumentException("No se puede anular una reserva nula.");
@@ -219,7 +220,7 @@ public class Reservas implements IReservas{
 			}
 		}
 
-
+// Representar lista reservas
 
 		public List<String> representar() {
 			List<String> cadena = new ArrayList<>();
@@ -230,7 +231,7 @@ public class Reservas implements IReservas{
 			return cadena;
 		}
 
-
+// Muestra reservas por profesor
 		public List<Reserva> getReservasProfesor(Profesor profesor) {
 
 			if(profesor==null)
@@ -276,7 +277,7 @@ public class Reservas implements IReservas{
 		}
 
 
-
+// Muestra reservas por aula
 		public List<Reserva> getReservasAula(Aula aula) {
 			if (aula == null) {
 				throw new NullPointerException("ERROR: El aula no puede ser nula.");
@@ -304,7 +305,7 @@ public class Reservas implements IReservas{
 			reservasOrdenadas.sort(Comparator.comparing(Reserva::getAula, comparadorAula).thenComparing(Reserva::getPermanencia, comparadorPermanencia));
 			return reservasOrdenadas;
 		}
-
+// Consultamos disponibilidad de aulas
 		public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
 			if (aula == null) {
 				throw new NullPointerException("ERROR: No se puede consultar la disponibilidad de un aula nula.");

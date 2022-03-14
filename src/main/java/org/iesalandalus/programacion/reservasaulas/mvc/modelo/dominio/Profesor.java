@@ -11,18 +11,18 @@ public class Profesor implements Serializable{
 	public String correo;
 	public String telefono;
 
-
+// Constructor por defecto
 	public Profesor(String nombre, String correo) {
 		setNombre(nombre);
 		setCorreo(correo);
 	}
-
+// constructor con tres parametros
 	public Profesor(String nombre, String correo, String telefono) {
 		setNombre(nombre);
 		setCorreo(correo);
 		setTelefono(telefono);
 	}
-
+// Constructor copia
 	public Profesor(Profesor profesor) {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un profesor nulo.");
@@ -31,7 +31,7 @@ public class Profesor implements Serializable{
 		setCorreo(profesor.correo);
 		setTelefono(profesor.telefono);
 	}
-
+// Set nombre del profesor
 	private void setNombre(String nombre) {
 		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre del profesor no puede ser nulo.");
@@ -41,6 +41,7 @@ public class Profesor implements Serializable{
 		}
 		this.nombre = nombre;
 	}
+	// Formatea nombre del profesor
 	private String formateaNombre(String nombre){ // Formateo del nombre, eliminamos espacios y ponemos la primera en mayuscula
 		
 		char priLetra;
@@ -59,7 +60,7 @@ public class Profesor implements Serializable{
 		
 		return nombreFormateado;
 	}
-	
+	// inserta correo
 	public void setCorreo(String correo) {
 		if (correo == null) {
 			throw new NullPointerException("ERROR: El correo del profesor no puede ser nulo.");
@@ -69,27 +70,27 @@ public class Profesor implements Serializable{
 		}
 		this.correo = correo;
 	}
-	
+	// inserta telefono
 	public void setTelefono(String telefono) {
 		if (telefono != null && !telefono.matches(ER_TELEFONO)) {
 			throw new IllegalArgumentException("ERROR: El teléfono del profesor no es válido.");
 		}
 		this.telefono = telefono;
 	}
-
+// Muestra nombre
 	public String getNombre() {
 		return nombre;
 	}
-	
+	// Muestra correo
 	public String getCorreo() {
 		return correo;
 	}
-
+	// Muestra telefono
 	public String getTelefono() {
 		return telefono;
 	}
 
-	
+	// Muestra profesor ficticio
 	public static Profesor getProfesorFicticio(String correo) {
 		return new Profesor("Alex Balwing", correo);
 	}
