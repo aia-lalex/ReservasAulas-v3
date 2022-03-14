@@ -20,7 +20,7 @@ public class Consola {
 
 	private Consola() {	
 	}
-	
+	// Muestra menu 
 	public static void mostrarMenu() {
 		for (Opcion opcion: Opcion.values()) {
 			System.out.println(opcion);
@@ -32,7 +32,7 @@ public class Consola {
 		String formatoStr = "%0" + mensaje.length() + "d%n";
 		System.out.println(String.format(formatoStr, 0).replace("0", "-"));
 	}
-	
+	// elige opción
 	public static int elegirOpcion() {
 		int ordinalOpcion;
 		do {
@@ -42,7 +42,7 @@ public class Consola {
 		return ordinalOpcion;
 	}
 
-
+// lee aula
 
 	public static Aula leerAula() {
 		System.out.print("Introduce el nombre del aula: ");
@@ -51,6 +51,7 @@ public class Consola {
 		int puestos = Entrada.entero();
 		return new Aula(nombre, puestos);
 	}
+	// lee el numero de puestos
 	public static int leerNumeroPuestos() {
 		int puestos = 0;
 		do {
@@ -59,20 +60,20 @@ public class Consola {
 		} while (puestos < 10 || puestos > 100);
 		return puestos;
 	}
-
+// lee aula ficticia
 	public static Aula leerAulaFicticia() {
 		System.out.print("Introduce el nombre del aula: ");
 		String nombre = Entrada.cadena();
 		return Aula.getAulaFicticia(nombre);
 	}
-
+// lee nombre de aula
 	public static String leerNombreAula() {
 		System.out.println("introduce el nombre del aula");
 		String nombre = Entrada.cadena();
 		return nombre;
 	}
 
-
+// lee profesor
 	public static Profesor leerProfesor() {
 		System.out.print("Introduce el nombre del profesor: ");
 		String nombre = Entrada.cadena();
@@ -89,14 +90,14 @@ public class Consola {
 		return profesor;
 	}
 	
-	
+	// lee nomnre del profesor
 	public static String leerNombreProfesor() {
 		System.out.println("introduce el nombre del profesor");
 		String nombre = Entrada.cadena();
 		return nombre;
 	}
 
-
+// lee profesor ficticio
 	public static Profesor leerProfesorFicticio() {
 		System.out.print("Introduce el correo del profesor: ");
 		return Profesor.getProfesorFicticio(Entrada.cadena());
@@ -104,7 +105,7 @@ public class Consola {
 	
 
 	
-
+// lee tramo
 	
 	public static Tramo leerTramo( ) {
 		System.out.print("Introduce el tramo de la reserva (0.- Mañana, 1.- Tarde): ");
@@ -117,6 +118,7 @@ public class Consola {
 		}
 		return tramo;
 	}
+	// lee dia
 	public static LocalDate leerDia() {
 		LocalDate dia = null;
 		String cadenaFormato = "dd/MM/yyyy";
@@ -130,7 +132,7 @@ public class Consola {
 		}
 		return dia;
 	}
-		
+		// elige permanencia
 	public static int elegirPermanencia() {
 		int ordinalPermanencia;
 		do {
@@ -139,7 +141,7 @@ public class Consola {
 		} while (ordinalPermanencia < 0 || ordinalPermanencia > 1);
 		return ordinalPermanencia;
 	}
-	
+	// lee permanencia
 	public static Permanencia leerPermanencia() {
 		int ordinalPermanencia = Consola.elegirPermanencia();
 		LocalDate dia = leerDia();
@@ -156,7 +158,7 @@ public class Consola {
 
 	
 	
-	
+	// lee hora
 	private static LocalTime leerHora() {
 		LocalTime hora = null;
 		String cadenaFormato = "HH:mm";
@@ -170,14 +172,14 @@ public class Consola {
 		}
 		return hora;
 	}
-	
+	// lee reserva
 	public static Reserva leerReserva() {
 		Profesor profesor = leerProfesorFicticio();
 		Aula aula = leerAulaFicticia();
 		Permanencia permanencia = leerPermanencia();
 		return new Reserva(profesor, aula, permanencia);
 	}
-	
+	// lee reserva ficticia
 	public static Reserva leerReservaFicticia() {
 		return Reserva.getReservaFicticia(leerAulaFicticia(), leerPermanencia());
 	}
