@@ -9,6 +9,7 @@ public class Reserva implements Serializable{
 	private Profesor profesor;
 	private Aula aula;
 // Constructor por defecto
+	
 	public Reserva(Profesor profesor, Aula aula, Permanencia permanencia) {
 		setProfesor(profesor);
 		setAula(aula);
@@ -85,19 +86,33 @@ public class Reserva implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(aula, permanencia);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((aula == null) ? 0 : aula.hashCode());
+		result = prime * result + ((permanencia == null) ? 0 : permanencia.hashCode());
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (!(obj instanceof Reserva)) {
+		if (obj == null)
 			return false;
-		}
+		if (getClass() != obj.getClass())
+			return false;
 		Reserva other = (Reserva) obj;
-		return Objects.equals(aula, other.aula) && Objects.equals(permanencia, other.permanencia);
+		if (aula == null) {
+			if (other.aula != null)
+				return false;
+		} else if (!aula.equals(other.aula))
+			return false;
+		if (permanencia == null) {
+			if (other.permanencia != null)
+				return false;
+		} else if (!permanencia.equals(other.permanencia))
+			return false;
+		return true;
 	}
 
 	@Override

@@ -99,10 +99,20 @@ public class Consola {
 
 // lee profesor ficticio
 	public static Profesor leerProfesorFicticio() {
-		System.out.print("Introduce el correo del profesor: ");
-		return Profesor.getProfesorFicticio(Entrada.cadena());
+		boolean centinela = false;
+		Profesor profesor = null;
+		do {
+			try {
+				System.out.print("Introduzca el correo del profesor: ");
+				String correo = Entrada.cadena();
+				profesor = Profesor.getProfesorFicticio(correo);
+				centinela = true;
+			} catch (NullPointerException | IllegalArgumentException e) {
+				// TODO: handle exception
+			}
+		} while (!centinela);
+		return profesor;
 	}
-	
 
 	
 // lee tramo

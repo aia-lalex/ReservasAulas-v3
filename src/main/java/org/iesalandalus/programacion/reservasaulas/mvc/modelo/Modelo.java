@@ -78,8 +78,8 @@ public class Modelo implements IModelo{
 		return profesores.representar();
 	}
 
-	public Profesor buscarProfesor(Profesor buscar) {
-		return profesores.buscar(buscar);
+	public Profesor buscarProfesor(Profesor profesor) {
+		return profesores.buscar(profesor);
 	}
 
 	public void insertarProfesor(Profesor insertar) throws OperationNotSupportedException {

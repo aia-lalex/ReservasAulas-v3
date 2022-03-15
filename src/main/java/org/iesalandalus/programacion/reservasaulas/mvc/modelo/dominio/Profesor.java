@@ -27,9 +27,9 @@ public class Profesor implements Serializable{
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un profesor nulo.");
 		}
-		setNombre(profesor.nombre);
-		setCorreo(profesor.correo);
-		setTelefono(profesor.telefono);
+		setNombre(profesor.getNombre());
+		setCorreo(profesor.getCorreo());
+		setTelefono(profesor.getTelefono());
 	}
 // Set nombre del profesor
 	private void setNombre(String nombre) {
@@ -39,7 +39,7 @@ public class Profesor implements Serializable{
 		if (nombre.trim().equals("")) {
 			throw new IllegalArgumentException("ERROR: El nombre del profesor no puede estar vacío.");
 		}
-		this.nombre = nombre;
+		this.nombre = formateaNombre(nombre);
 	}
 	// Formatea nombre del profesor
 	private String formateaNombre(String nombre){ // Formateo del nombre, eliminamos espacios y ponemos la primera en mayuscula
@@ -92,14 +92,21 @@ public class Profesor implements Serializable{
 
 	// Muestra profesor ficticio
 	public static Profesor getProfesorFicticio(String correo) {
-		return new Profesor("Alex Balwing", correo);
+		if (correo == null) {
+			throw new NullPointerException("ERROR: El correo del profesor no puede ser nulo.");
+		}
+		if (!correo.matches(ER_CORREO)) {
+			throw new IllegalArgumentException("ERROR: El correo del profesor no es válido.");
+		}
+		return new Profesor("Alex", correo, "655948136");
 	}
-
+	
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(ER_CORREO, ER_TELEFONO, correo, nombre, telefono);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -110,11 +117,13 @@ public class Profesor implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Profesor other = (Profesor) obj;
-		return Objects.equals(ER_CORREO, other.ER_CORREO) && Objects.equals(ER_TELEFONO, other.ER_TELEFONO)
-				&& Objects.equals(correo, other.correo) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(telefono, other.telefono);
+		if (correo == null) {
+			if (other.correo != null)
+				return false;
+		} else if (!correo.equals(other.correo))
+			return false;
+		return true;
 	}
-
 	@Override
 	public String toString() {
 		String cadenaTelefono = (telefono == null) ? "" : ", teléfono=" + telefono;

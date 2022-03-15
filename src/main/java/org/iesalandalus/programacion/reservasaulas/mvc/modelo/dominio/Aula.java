@@ -43,9 +43,9 @@ public class Aula implements Serializable {
 	
 
 	private void setPuestos(int puestos) {
-		if (puestos < MIN_PUESTOS || puestos > MAX_PUESTOS) {
-			throw new IllegalArgumentException("ERROR: El número de puestos no es correcto.");
-		}
+//		if (puestos < MIN_PUESTOS || puestos > MAX_PUESTOS) {
+	//		throw new IllegalArgumentException("ERROR: El número de puestos no es correcto.");
+	//	}
 		this.puestos = puestos;
 	}
 
@@ -59,7 +59,7 @@ public class Aula implements Serializable {
 	}
 // Muestra aula ficticia	
 	public static Aula getAulaFicticia(String nombre) {
-		return new Aula(nombre, 8);
+		return new Aula(nombre, 18);
 	}
 
 	

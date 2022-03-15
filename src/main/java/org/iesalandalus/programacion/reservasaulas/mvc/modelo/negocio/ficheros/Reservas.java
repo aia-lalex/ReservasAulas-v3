@@ -34,6 +34,12 @@ public class Reservas implements IReservas{
 		coleccionReservas = new ArrayList<>();
 	}
 
+	public Reservas(IReservas reservas) {
+		if (reservas == null) {
+			throw new NullPointerException("ERROR: No se pueden copiar reservas nulas.");
+		}
+		setReservas(reservas);
+	}
 	@Override
 	public void comenzar() {
 		leer();

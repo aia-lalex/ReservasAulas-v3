@@ -116,13 +116,15 @@ public class Vista implements IVista {
 // Buscar profesor
 	public void buscarProfesor() {
 		Consola.mostrarCabecera("Buscar profesor");
-		Profesor profesor = null;
-		String nombre="";
+		Profesor profesor;
 		try {
 			profesor = controlador.buscarProfesor(Consola.leerProfesorFicticio());
-			String mensaje = (profesor != null) ? profesor.toString() : "ERROR: No existe dicho profesor.";
-			System.out.println(mensaje);
-		} catch (IllegalArgumentException e) {
+			if (profesor == null) {
+				System.out.println("ERROR: El profesor no existe");
+			} else {
+				System.out.println(profesor.toString());
+			}
+		} catch (NullPointerException e) {
 			System.out.println(e.getMessage());
 		}
 	}
