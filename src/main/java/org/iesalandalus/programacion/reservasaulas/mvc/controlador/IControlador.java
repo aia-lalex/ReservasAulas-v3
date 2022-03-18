@@ -44,5 +44,6 @@ public interface IControlador {
 	
 	public List<Reserva> getReservasPermanencia(Permanencia permanencia);
 	
-	public boolean consultarDisponibilidad(Aula aula, Permanencia permanecia);
+	public boolean consultarDisponibilidad(Aula aula, Permanencia permanecia) throws OperationNotSupportedException;
+	
 }

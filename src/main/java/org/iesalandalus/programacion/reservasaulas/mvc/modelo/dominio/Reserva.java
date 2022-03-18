@@ -1,10 +1,10 @@
 package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Reserva implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private Permanencia permanencia;
 	private Profesor profesor;
 	private Aula aula;

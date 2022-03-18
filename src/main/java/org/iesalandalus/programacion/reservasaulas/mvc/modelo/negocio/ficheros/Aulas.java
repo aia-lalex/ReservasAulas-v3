@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +27,20 @@ public class Aulas implements IAulas{
 
 	public Aulas() {
 		coleccionAulas = new ArrayList<>();
+	}
+	
+	public Aulas(IAulas aulas) {
+		if (aulas == null) {
+			throw new NullPointerException("ERROR: No se pueden copiar aulas nulas.");
+		}
+		setAulas(aulas);
+	}
+	
+	private void setAulas(IAulas aulas) {
+		if (aulas == null) {
+			throw new NullPointerException("ERROR: No se pueden copiar aulas nulas.");
+		}
+		this.coleccionAulas = aulas.getAulas();
 	}
 
 	@Override
@@ -74,7 +89,9 @@ public class Aulas implements IAulas{
 	}
 	
 	public List<Aula> getAulas() {
-		return copiaProfundaAulas(coleccionAulas);
+		List<Aula> copiaProfundaAulas = copiaProfundaAulas(coleccionAulas);
+		copiaProfundaAulas.sort(Comparator.comparing(Aula::getNombre));
+		return copiaProfundaAulas;
 	}
 
 	private List<Aula> copiaProfundaAulas(List<Aula> aulas) {
@@ -95,7 +112,7 @@ public class Aulas implements IAulas{
 			throw new NullPointerException("ERROR: No se puede insertar un aula nula.");
 		}
 		if (coleccionAulas.contains(aula)){
-			throw new OperationNotSupportedException("ERROR: No se aceptan más aulas.");
+			throw new OperationNotSupportedException("ERROR: Ya existe un aula con ese nombre.");
 
 		} else coleccionAulas.add(new Aula(aula));
 	}
@@ -105,11 +122,11 @@ public class Aulas implements IAulas{
 // Borra aula
 	public void borrar(Aula aula) throws OperationNotSupportedException {
 		if (aula == null) {
-			throw new IllegalArgumentException("ERROR: No se puede borrar un aula nula.");
+			throw new NullPointerException("ERROR: No se puede borrar un aula nula.");
 		}
 
 		if (!coleccionAulas.remove(aula)) {
-			throw new OperationNotSupportedException("ERROR: El aula a borrar no existe.");
+			throw new OperationNotSupportedException("ERROR: No existe ningún aula con ese nombre.");
 		}
 	}
 	public Aula buscar(Aula aula) throws IllegalArgumentException, NullPointerException {
@@ -118,8 +135,9 @@ public class Aulas implements IAulas{
 		}
 		Iterator<Aula> it = coleccionAulas.iterator();
 		while (it.hasNext()) {
-			if (it.next().equals(aula)) {
-				return new Aula(aula);
+			Aula aulaBuscada = it.next();
+			if (aulaBuscada.equals(aula)) {
+				return new Aula(aulaBuscada);
 			}
 		}
 		return null;

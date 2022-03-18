@@ -3,13 +3,15 @@ package org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio;
 import java.io.Serializable;
 
 public class Aula implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private int puestos;
 	private String nombre;
-	private float PUNTOSXPUESTO= 0.5f;
+	private float PUNTOSXPUESTO = 0.5f;
 	private static final int MIN_PUESTOS = 10;
 	private static final int MAX_PUESTOS = 100;
 
-	public Aula(String nombre, int puestos) {	// Metodo constructor
+	public Aula(String nombre, int puestos) { // Metodo constructor
 		if (nombre == null) {
 			throw new NullPointerException("ERROR: El nombre del aula no puede ser nulo.");
 		}
@@ -17,7 +19,7 @@ public class Aula implements Serializable {
 		setPuestos(puestos);
 	}
 
-	public Aula(Aula aula) {	// Constructor copia
+	public Aula(Aula aula) { // Constructor copia
 		if (aula == null) {
 			throw new NullPointerException("ERROR: No se puede copiar un aula nula.");
 		}
@@ -35,17 +37,16 @@ public class Aula implements Serializable {
 		}
 		this.nombre = nombre;
 	}
-	
+
 // Muestra puestos
 	public int getPuestos() {
 		return puestos;
 	}
-	
 
 	private void setPuestos(int puestos) {
-//		if (puestos < MIN_PUESTOS || puestos > MAX_PUESTOS) {
-	//		throw new IllegalArgumentException("ERROR: El número de puestos no es correcto.");
-	//	}
+		if (puestos < MIN_PUESTOS || puestos > MAX_PUESTOS) {
+			throw new IllegalArgumentException("ERROR: El número de puestos no es correcto.");
+		}
 		this.puestos = puestos;
 	}
 
@@ -53,17 +54,14 @@ public class Aula implements Serializable {
 		return nombre;
 	}
 
-	
 	public float getPuntos() {
 		return puestos * PUNTOSXPUESTO;
 	}
+
 // Muestra aula ficticia	
 	public static Aula getAulaFicticia(String nombre) {
 		return new Aula(nombre, 18);
 	}
-
-	
-
 
 	// creamos hashCode y equals
 	@Override
@@ -98,4 +96,3 @@ public class Aula implements Serializable {
 	}
 
 }
-

@@ -19,7 +19,7 @@ public interface IReservas {
 	public List<Reserva> getReservasProfesor(Profesor profesor);
 	public List<Reserva> getReservasAula(Aula aula);
 	public List<Reserva> getReservasPermanencia(Permanencia permanencia);
-	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia);
+	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) throws OperationNotSupportedException;
 	void comenzar();
 
 	void terminar();

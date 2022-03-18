@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class Profesor implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private static final String ER_TELEFONO = "[96]\\d{8}";
 	private static final String ER_CORREO = ".+@[a-zA-Z]+\\.[a-zA-Z]+";
 	public String nombre;

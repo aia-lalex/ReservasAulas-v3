@@ -3,14 +3,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
-import org.iesalandalus.programacion.reservasaulas.mvc.controlador.Controlador;
 import org.iesalandalus.programacion.reservasaulas.mvc.controlador.IControlador;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.Modelo;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Aula;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Permanencia;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Profesor;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Reservas;
 
 public class Vista implements IVista {
 
@@ -58,7 +54,7 @@ public class Vista implements IVista {
 	public void borrarAula() {
 		Consola.mostrarCabecera("Borrar aula");
 		try {
-			controlador.borrarAula(Consola.leerAula());
+			controlador.borrarAula(Consola.leerAulaFicticia());
 			System.out.println("Aula borrada correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
 			System.out.println(e.getMessage());
@@ -69,9 +65,9 @@ public class Vista implements IVista {
 		Consola.mostrarCabecera("Buscar aula");
 		Aula aula = null;
 		try {
-			aula = controlador.buscarAula(Consola.leerAula());
+			aula = controlador.buscarAula(Consola.leerAulaFicticia());
 			if (aula != null) {
-				System.out.println("El aula buscado es: " + aula);
+				System.out.println("El aula buscada es: " + aula);
 			} else {
 				System.out.println("ERROR: No existe ningún aula con dicho nombre.");
 			}
@@ -104,10 +100,9 @@ public class Vista implements IVista {
 	}
 // Borrar profesor
 	public void borrarProfesor() {
-		String nombre="";
 		Consola.mostrarCabecera("Borrar profesor");
 		try {
-			controlador.borrarProfesor(Consola.leerProfesor());
+			controlador.borrarProfesor(Consola.leerProfesorFicticio());
 			System.out.println("Profesor borrado correctamente.");
 		} catch (OperationNotSupportedException|IllegalArgumentException e) {
 			System.out.println(e.getMessage());
@@ -158,7 +153,9 @@ public class Vista implements IVista {
 			centinela = false;
 		}
 		if (centinela) {
-			controlador.realizarReserva(reserva);
+			Aula aula = controlador.buscarAula(reserva.getAula());
+			Profesor profesor = controlador.buscarProfesor(reserva.getProfesor());
+			controlador.realizarReserva(new Reserva(profesor, aula, reserva.getPermanencia()));
 			System.out.println("Reserva realizada con exito.");
 		}
 	} catch (Exception e) {
@@ -169,7 +166,7 @@ public class Vista implements IVista {
 	public void anularReserva() {
 		try {
 			System.out.println("Anular reserva");
-			controlador.anularReserva(Consola.leerReserva());
+			controlador.anularReserva(Consola.leerReservaFicticia());
 			System.out.println("Reserva eliminda con éxito");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -193,7 +190,7 @@ public class Vista implements IVista {
 // Listar reserva aula
 	public void listarReservasAula() {
 		Consola.mostrarCabecera("Listar reservas por aula");
-		List<Reserva> reservas = controlador.getReservasAula(Consola.leerAula());
+		List<Reserva> reservas = controlador.getReservasAula(Consola.leerAulaFicticia());
 		if (!reservas.isEmpty()) {
 			Iterator<Reserva> it = reservas.iterator();
 			while (it.hasNext()) {
@@ -219,15 +216,20 @@ public class Vista implements IVista {
 // Consultar disponibilidad	
 	public void consultarDisponibilidad() {
 		Consola.mostrarCabecera("Consultar diponibilidad");
-		Aula aula = Consola.leerAula();
+		Aula aula = Consola.leerAulaFicticia();
 		if (controlador.buscarAula(aula) == null) {
 			System.out.println("El aula no esta en el listado");
 		} else {
-			if (controlador.consultarDisponibilidad(Consola.leerAulaFicticia(), Consola.leerPermanencia())) {
-				System.out.println("ERROR: El aula esta disponible");
-			} else {
-				System.out.println("ERROR: El aula no esta disponible");
+			try {
+				if (controlador.consultarDisponibilidad(aula, Consola.leerPermanencia())) {
+					System.out.println("El aula esta disponible");
+				} else {
+					System.out.println("ERROR: El aula no esta disponible");
+				}
+			} catch (OperationNotSupportedException e) {
+				System.out.println(e.getMessage());
 			}
+			
 		}
 
 }

@@ -48,7 +48,7 @@ public interface IModelo {
 
 	public List<Reserva> getReservasPermanencia(Permanencia permanencia);
 
-	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia);
+	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) throws OperationNotSupportedException;
 
 	void comenzar();
 

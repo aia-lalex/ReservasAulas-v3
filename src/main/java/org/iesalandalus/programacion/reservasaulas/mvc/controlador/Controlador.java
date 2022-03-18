@@ -89,7 +89,7 @@ public class Controlador implements IControlador {
 	public List<Reserva> getReservasPermanencia(Permanencia permanencia) {
 		return modelo.getReservasPermanencia(permanencia);
 	}
-	public boolean consultarDisponibilidad(Aula aula, Permanencia permanecia) {
+	public boolean consultarDisponibilidad(Aula aula, Permanencia permanecia) throws OperationNotSupportedException {
 		return modelo.consultarDisponibilidad(aula, permanecia);
 	}
 }

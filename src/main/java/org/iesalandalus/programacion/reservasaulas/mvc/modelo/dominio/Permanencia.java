@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class Permanencia implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private LocalDate dia;
 	protected static final DateTimeFormatter FORMATO_DIA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

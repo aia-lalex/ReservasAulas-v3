@@ -9,9 +9,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.dominio.Reserva;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IAulas;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IProfesores;
 import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IReservas;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Aulas;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Profesores;
-import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.ficheros.Reservas;
+
 
 public class Modelo implements IModelo{
 
@@ -126,7 +124,7 @@ public class Modelo implements IModelo{
 		return reservas.getReservasPermanencia(permanencia);
 	}
 
-	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) {
+	public boolean consultarDisponibilidad(Aula aula, Permanencia permanencia) throws OperationNotSupportedException {
 		return reservas.consultarDisponibilidad(aula, permanencia);
 	}
 

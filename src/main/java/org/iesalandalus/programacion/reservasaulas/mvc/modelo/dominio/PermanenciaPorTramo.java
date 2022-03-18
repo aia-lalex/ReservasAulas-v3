@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class PermanenciaPorTramo extends Permanencia implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private static final int PUNTOS=10;
 	private Tramo tramo;
 	// Constructor por defecto

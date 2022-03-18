@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class PermanenciaPorHora extends Permanencia implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private static final int PUNTOS=3;
 	private static final LocalTime HORA_INICIO= LocalTime.of(8, 0);;
 	private static final LocalTime HORA_FIN = LocalTime.of(22, 0);;

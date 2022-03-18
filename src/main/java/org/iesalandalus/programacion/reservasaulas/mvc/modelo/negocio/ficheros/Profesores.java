@@ -20,22 +20,27 @@ import org.iesalandalus.programacion.reservasaulas.mvc.modelo.negocio.IProfesore
 
 public class Profesores implements IProfesores {
 
-	private List <Profesor> coleccionProfesores;
+	private List<Profesor> coleccionProfesores;
 	private static final String NOMBRE_FICHERO_PROFESORES = "datos/profesores.dat";
-
 
 // contructor por defecto
 	public Profesores() {
 		coleccionProfesores = new ArrayList<>();
 	}
-
 	
+	public Profesores(IProfesores profes) {
+		if (profes == null) {
+			throw new NullPointerException("ERROR: No se pueden copiar profesores nulos.");
+		}
+		setProfesores(profes);
+	}
+
 	@Override
 	public void comenzar() {
 		leer();
 	}
 	// lee fichero de profesoreas
-	
+
 	private void leer() {
 		File ficheroProfesores = new File(NOMBRE_FICHERO_PROFESORES);
 		try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(ficheroProfesores))) {
@@ -58,10 +63,10 @@ public class Profesores implements IProfesores {
 	}
 
 	// Metodo escribir
-	
+
 	private void escribir() {
 		File ficheroAulas = new File(NOMBRE_FICHERO_PROFESORES);
-		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAulas))){
+		try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(ficheroAulas))) {
 			for (Profesor profesor : coleccionProfesores)
 				salida.writeObject(profesor);
 			System.out.println("Fichero profesores escrito satisfactoriamente.");
@@ -71,12 +76,12 @@ public class Profesores implements IProfesores {
 			System.out.println("Error inesperado de Entrada/Salida.");
 		}
 	}
-	
+
 	@Override
 	public void terminar() {
 		escribir();
 	}
-	
+
 	// Crea un profesor
 	private void setProfesores(IProfesores profesores) {
 		if (profesores == null) {
@@ -85,16 +90,16 @@ public class Profesores implements IProfesores {
 		this.coleccionProfesores = profesores.getProfesores();
 	}
 
-	
 // copia todos los profesores
 	private List<Profesor> copiaProfundaProfesores() {
 		List<Profesor> otrosProfesores = new ArrayList<>();
-		Iterator<Profesor> it = otrosProfesores.iterator();
+		Iterator<Profesor> it = coleccionProfesores.iterator();
 		while (it.hasNext()) {
 			otrosProfesores.add(new Profesor(it.next()));
 		}
 		return otrosProfesores;
 	}
+
 // lista todos los profesoreas
 	public List<Profesor> getProfesores() {
 		List<Profesor> copiaProfundaProfesores = copiaProfundaProfesores();
@@ -109,34 +114,36 @@ public class Profesores implements IProfesores {
 		return coleccionProfesores.size();
 	}
 
-
 // inserta un profesor
-		public void insertar(Profesor profesor) throws OperationNotSupportedException {
-			if (profesor == null) {
-				throw new NullPointerException("ERROR: No se puede insertar un profesor nulo.");
-			}
-			if (coleccionProfesores.contains(profesor)) {
-				throw new OperationNotSupportedException("ERROR: Ya existe un profesor con ese nombre.");
-			} else {
-				coleccionProfesores.add(profesor);
-			}
-
+	public void insertar(Profesor profesor) throws OperationNotSupportedException {
+		if (profesor == null) {
+			throw new NullPointerException("ERROR: No se puede insertar un profesor nulo.");
 		}
-	//Buscar un profesor	
-		public Profesor buscar(Profesor profesor) throws IllegalArgumentException, NullPointerException {
-			if (profesor == null) {
-				throw new NullPointerException("ERROR: No se puede buscar un profesor nulo.");
-			}
-			Iterator<Profesor> it = coleccionProfesores.iterator();
-			while (it.hasNext()) {
-				if (it.next().equals(profesor)) {
-					return new Profesor(profesor);
-				}
-			}
-			return null;
-
+		if (coleccionProfesores.contains(profesor)) {
+			throw new OperationNotSupportedException("ERROR: Ya existe un profesor con ese correo.");
+		} else {
+			coleccionProfesores.add(profesor);
 		}
-	// Borra un profesor	
+
+	}
+
+	// Buscar un profesor
+	public Profesor buscar(Profesor profesor) throws IllegalArgumentException, NullPointerException {
+		if (profesor == null) {
+			throw new NullPointerException("ERROR: No se puede buscar un profesor nulo.");
+		}
+		Iterator<Profesor> it = coleccionProfesores.iterator();
+		while (it.hasNext()) {
+			Profesor profeBuscado = it.next();
+			if (profeBuscado.equals(profesor)) {
+				return new Profesor(profeBuscado);
+			}
+		}
+		return null;
+
+	}
+
+	// Borra un profesor
 	public void borrar(Profesor profesor) throws OperationNotSupportedException {
 		if (profesor == null) {
 			throw new NullPointerException("ERROR: No se puede borrar un profesor nulo.");
@@ -150,19 +157,19 @@ public class Profesores implements IProfesores {
 			}
 		}
 		if (!borrado) {
-			throw new OperationNotSupportedException("ERROR: No existe ningún profesor con ese nombre.");
-		} 
+			throw new OperationNotSupportedException("ERROR: No existe ningún profesor con ese correo.");
+		}
 	}
+
 // lista los profesores
 	public List<String> representar() {
-		List<String>  cadena = new ArrayList<>();;
+		List<String> cadena = new ArrayList<>();
+		;
 		Iterator<Profesor> it = coleccionProfesores.iterator();
 		while (it.hasNext()) {
 			cadena.add(it.next().toString());
 		}
 		return cadena;
 	}
-
-
 
 }
