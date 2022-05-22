@@ -9,7 +9,7 @@ import org.iesalandalus.programacion.reservasaulas.mvc.vista.Vista;
 
 
 public class MainApp {
-
+ 
 
 	public static void main(String[] args) {
 		IModelo modelo = null;
