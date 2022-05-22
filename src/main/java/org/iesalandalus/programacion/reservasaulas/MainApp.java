@@ -15,6 +15,9 @@ public class MainApp {
 		IModelo modelo = null;
 		modelo = new Modelo(FactoriaFuenteDatos.FICHEROS.crear());
 		IVista vista = new Vista();
+		//IVista vista = new VistaGrafica();
+		//IVista vista = new VistaTexto();
+		//IVista vista = procesarArgumentosVista
 		IControlador controlador = new Controlador(modelo, vista);
 		System.out.println();
 		controlador.comenzar();
